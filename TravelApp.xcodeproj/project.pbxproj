@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		742D866B24F41DA3004695E7 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742D866A24F41DA3004695E7 /* WelcomeViewController.swift */; };
+		745751DD24F12F6700FD25BF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745751DC24F12F6700FD25BF /* LoginViewController.swift */; };
+		74A6941624DC6B8400AD6C9F /* CreateStopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A6941524DC6B8400AD6C9F /* CreateStopViewController.swift */; };
 		74FBF1F924D88A5F00DCB925 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FBF1F824D88A5F00DCB925 /* AppDelegate.swift */; };
 		74FBF1FB24D88A5F00DCB925 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FBF1FA24D88A5F00DCB925 /* SceneDelegate.swift */; };
 		74FBF1FD24D88A5F00DCB925 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FBF1FC24D88A5F00DCB925 /* ViewController.swift */; };
@@ -16,6 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		742D866A24F41DA3004695E7 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		745751DC24F12F6700FD25BF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		74A6941524DC6B8400AD6C9F /* CreateStopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateStopViewController.swift; sourceTree = "<group>"; };
 		74FBF1F524D88A5F00DCB925 /* TravelApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74FBF1F824D88A5F00DCB925 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74FBF1FA24D88A5F00DCB925 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +66,9 @@
 				74FBF1FA24D88A5F00DCB925 /* SceneDelegate.swift */,
 				74FBF1FC24D88A5F00DCB925 /* ViewController.swift */,
 				74FBF1FE24D88A5F00DCB925 /* Main.storyboard */,
+				742D866A24F41DA3004695E7 /* WelcomeViewController.swift */,
+				745751DC24F12F6700FD25BF /* LoginViewController.swift */,
+				74A6941524DC6B8400AD6C9F /* CreateStopViewController.swift */,
 				74FBF20124D88A6200DCB925 /* Assets.xcassets */,
 				74FBF20324D88A6200DCB925 /* LaunchScreen.storyboard */,
 				74FBF20624D88A6200DCB925 /* Info.plist */,
@@ -140,7 +149,10 @@
 			files = (
 				74FBF1FD24D88A5F00DCB925 /* ViewController.swift in Sources */,
 				74FBF1F924D88A5F00DCB925 /* AppDelegate.swift in Sources */,
+				74A6941624DC6B8400AD6C9F /* CreateStopViewController.swift in Sources */,
+				742D866B24F41DA3004695E7 /* WelcomeViewController.swift in Sources */,
 				74FBF1FB24D88A5F00DCB925 /* SceneDelegate.swift in Sources */,
+				745751DD24F12F6700FD25BF /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +299,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K3YNK36LKJ;
 				INFOPLIST_FILE = TravelApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -305,6 +318,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K3YNK36LKJ;
 				INFOPLIST_FILE = TravelApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
