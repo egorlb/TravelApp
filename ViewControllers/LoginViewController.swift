@@ -1,7 +1,4 @@
 
-
-
-
 import UIKit
 
 class LoginViewController: UIViewController {
@@ -9,8 +6,10 @@ class LoginViewController: UIViewController {
     // MARK: - Variables
     
     var iconBtn = false
-
+    
+    @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    
     @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var loginBtn: UIButton!
     
