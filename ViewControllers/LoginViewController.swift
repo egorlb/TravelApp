@@ -23,6 +23,10 @@ class LoginViewController: UIViewController {
     
     // MARK: - Actions
     
+    @IBAction func clickedLogin(_ sender: UIButton) {
+        sender.setAnimationForButton()
+    }
+    
     @IBAction func changeIcon(_ sender: UIButton) {
         if iconBtn {
             iconImage.image = UIImage(systemName: "eye")

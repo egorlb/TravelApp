@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		742D866B24F41DA3004695E7 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742D866A24F41DA3004695E7 /* WelcomeViewController.swift */; };
 		745751DD24F12F6700FD25BF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745751DC24F12F6700FD25BF /* LoginViewController.swift */; };
+		7461C60624FE622F00E31274 /* UIButton+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7461C60524FE622F00E31274 /* UIButton+Ex.swift */; };
+		7461C60824FE9C0500E31274 /* CreateAccountViewController .swift in Sources */ = {isa = PBXBuildFile; fileRef = 7461C60724FE9C0500E31274 /* CreateAccountViewController .swift */; };
 		74A6941624DC6B8400AD6C9F /* CreateStopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A6941524DC6B8400AD6C9F /* CreateStopViewController.swift */; };
 		74BB42D024F8139300149010 /* TravelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BB42CF24F8139300149010 /* TravelListViewController.swift */; };
 		74BB42D224F8141B00149010 /* Travel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BB42D124F8141B00149010 /* Travel.swift */; };
@@ -27,6 +29,8 @@
 /* Begin PBXFileReference section */
 		742D866A24F41DA3004695E7 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		745751DC24F12F6700FD25BF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		7461C60524FE622F00E31274 /* UIButton+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ex.swift"; sourceTree = "<group>"; };
+		7461C60724FE9C0500E31274 /* CreateAccountViewController .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreateAccountViewController .swift"; sourceTree = "<group>"; };
 		74A6941524DC6B8400AD6C9F /* CreateStopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateStopViewController.swift; sourceTree = "<group>"; };
 		74BB42CF24F8139300149010 /* TravelListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListViewController.swift; sourceTree = "<group>"; };
 		74BB42D124F8141B00149010 /* Travel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Travel.swift; sourceTree = "<group>"; };
@@ -55,6 +59,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7461C60224FE613B00E31274 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7461C60524FE622F00E31274 /* UIButton+Ex.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		74BB42FF24FBC41E00149010 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -63,6 +75,7 @@
 				74A6941524DC6B8400AD6C9F /* CreateStopViewController.swift */,
 				745751DC24F12F6700FD25BF /* LoginViewController.swift */,
 				74BB430324FBC66700149010 /* PlaceListViewControllersViewController.swift */,
+				7461C60724FE9C0500E31274 /* CreateAccountViewController .swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -99,6 +112,7 @@
 			children = (
 				74FBF1F724D88A5F00DCB925 /* TravelApp */,
 				74BB42FF24FBC41E00149010 /* ViewControllers */,
+				7461C60224FE613B00E31274 /* Extensions */,
 				74BB430024FBC45C00149010 /* Cells */,
 				74BB430124FBC4C700149010 /* Models */,
 				74BB430224FBC4E500149010 /* Resources */,
@@ -208,7 +222,9 @@
 				74FBF1FB24D88A5F00DCB925 /* SceneDelegate.swift in Sources */,
 				74BB430624FBC74600149010 /* Place.swift in Sources */,
 				745751DD24F12F6700FD25BF /* LoginViewController.swift in Sources */,
+				7461C60824FE9C0500E31274 /* CreateAccountViewController .swift in Sources */,
 				74BB430824FBC91800149010 /* PlaceCell.swift in Sources */,
+				7461C60624FE622F00E31274 /* UIButton+Ex.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
