@@ -18,14 +18,12 @@ class WelcomeViewController: UIViewController {
     
     @IBAction func createAccount(_ sender: UIButton) {
 //        sender.createAnAccount()
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let createAccount = storyboard.instantiateViewController(identifier: "CreateAccountViewController") as! CreateAccountViewController
+        let createAccount = CreateAccountViewController.fromStoryboard() as! CreateAccountViewController
         self.navigationController?.pushViewController(createAccount, animated: true)
     }
     
     @IBAction func clickedLogin(_ sender: UIButton) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let loginVC = storyboard.instantiateViewController(identifier: "LoginViewController") as! LoginViewController
+        let loginVC = LoginViewController.fromStoryboard() as! LoginViewController
         self.navigationController?.pushViewController(loginVC, animated: true)
     }
     

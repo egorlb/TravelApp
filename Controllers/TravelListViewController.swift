@@ -19,14 +19,8 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.delegate = self
         tableView.dataSource = self
         
-        let travel1 = Travel(name: "Russia", description: "Moscow")
-        travels.append(travel1)
-        
-        let travel2 = Travel(name: "Portugal", description: "Lissabon")
-        travels.append(travel2)
-        
-        let travel3 = Travel(name: "Belarus", description: "Minsk")
-        travels.append(travel3)
+        let travelCoutry = Travel(name: "Russia", description: "Moscow")
+        travels.append(travelCoutry)
     }
     
     // MARK: TableView
@@ -46,4 +40,9 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
         return 95
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let stopVC = StopsViewController.fromStoryboard() as! StopsViewController
+        stopVC.travel = travels[indexPath.row]
+        navigationController?.pushViewController(stopVC, animated: true)
+    }
 }

@@ -10,15 +10,10 @@ enum Transport {
 // MARK: - Classes
 
 class Stop {
-    var name: String
+    var name: String = ""
+    var spentMoney = ""
     var rating: Int = 0
     var location: CGPoint = .zero
-    var spentMoney: Double = 0
     var transport: Transport = .none
     var description: String = ""
-    
-    init(name: String) {
-        self.name = name
-        
-    }
 }

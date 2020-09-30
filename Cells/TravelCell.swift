@@ -14,9 +14,11 @@ class TravelCell: UITableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var viewForCell: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        viewForCell.layer.cornerRadius = 10
     }
 }

@@ -1,7 +1,7 @@
 
 import UIKit
 
-class PlaceCell: UITableViewCell {
+class StopCell: UITableViewCell {
     
     // MARK: - Outlets
     
@@ -16,6 +16,6 @@ class PlaceCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        viewForCell.layer.cornerRadius = 4
+        viewForCell.layer.cornerRadius = 25
     }
 }
