@@ -22,8 +22,7 @@ class StopsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     // MARK: - Actions
     
     @IBAction func addStopClicked(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let createVC = storyboard.instantiateViewController(identifier: "CreateStopViewController") as! CreateStopViewController
+        let createVC = CreateStopViewController.fromStoryboard() as! CreateStopViewController
         createVC.delegate = self
         navigationController?.pushViewController(createVC, animated: true)
     }

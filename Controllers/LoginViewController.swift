@@ -1,10 +1,12 @@
 
 import UIKit
+import Firebase
 
 class LoginViewController: UIViewController {
     
     // MARK: - Variables
     
+    var message: String = ""
     var iconBtn = false
     
     @IBOutlet weak var emailTextField: UITextField!
@@ -23,7 +25,25 @@ class LoginViewController: UIViewController {
     
     // MARK: - Actions
     
-    @IBAction func clickedLogin(_ sender: UIButton) {
+    @IBAction func didTapLoginButton(_ sender: UIButton) {
+        guard let email = emailTextField.text, let password = passwordTextField.text else {
+            return
+        }
+        Auth.auth().signIn(withEmail: email, password: password) { (user, _) in
+            var message: String = ""
+            if user != nil {
+                message = "User was sucessfully logged in."
+                
+                let createStop = TravelListViewController.fromStoryboard() as! TravelListViewController
+                self.navigationController?.pushViewController(createStop, animated: true)
+            } else {
+                message = "There was an error."
+            }
+            let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
         sender.setAnimationForButton()
     }
     

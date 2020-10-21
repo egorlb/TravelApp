@@ -6,7 +6,9 @@ target 'TravelApp' do
   use_frameworks!
 
   pod 'Alamofire'
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
   
-  # Pods for TravelApp
 
 end

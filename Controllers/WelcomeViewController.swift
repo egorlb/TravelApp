@@ -17,8 +17,7 @@ class WelcomeViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func createAccount(_ sender: UIButton) {
-//        sender.createAnAccount()
-        let createAccount = CreateAccountViewController.fromStoryboard() as! CreateAccountViewController
+        let createAccount = RegistrationViewController.fromStoryboard() as! RegistrationViewController
         self.navigationController?.pushViewController(createAccount, animated: true)
     }
     

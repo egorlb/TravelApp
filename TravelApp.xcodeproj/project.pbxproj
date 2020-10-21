@@ -11,11 +11,11 @@
 		74050C102525148400A77C33 /* Double+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74050C0F2525148400A77C33 /* Double+Ex.swift */; };
 		74050C12252514F200A77C33 /* CLLocationCoordinate+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74050C11252514F200A77C33 /* CLLocationCoordinate+Ex.swift */; };
 		742D866B24F41DA3004695E7 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742D866A24F41DA3004695E7 /* WelcomeViewController.swift */; };
+		743AC7772538B526007F215A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 743AC7762538B526007F215A /* GoogleService-Info.plist */; };
 		744C11462522565B0013B260 /* UIViewController+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744C11452522565B0013B260 /* UIViewController+Ex.swift */; };
-		744C1149252263630013B260 /* AlamofireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744C1148252263630013B260 /* AlamofireViewController.swift */; };
 		745751DD24F12F6700FD25BF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745751DC24F12F6700FD25BF /* LoginViewController.swift */; };
 		7461C60624FE622F00E31274 /* UIButton+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7461C60524FE622F00E31274 /* UIButton+Ex.swift */; };
-		7461C60824FE9C0500E31274 /* CreateAccountViewController .swift in Sources */ = {isa = PBXBuildFile; fileRef = 7461C60724FE9C0500E31274 /* CreateAccountViewController .swift */; };
+		7461C60824FE9C0500E31274 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7461C60724FE9C0500E31274 /* RegistrationViewController.swift */; };
 		746757AA25191C900096BD14 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746757A925191C900096BD14 /* MapViewController.swift */; };
 		74A6941624DC6B8400AD6C9F /* CreateStopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A6941524DC6B8400AD6C9F /* CreateStopViewController.swift */; };
 		74BB42D024F8139300149010 /* TravelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BB42CF24F8139300149010 /* TravelListViewController.swift */; };
@@ -23,7 +23,6 @@
 		74BB42D424F815B900149010 /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BB42D324F815B900149010 /* Stop.swift */; };
 		74BB42D624F8290A00149010 /* TravelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BB42D524F8290A00149010 /* TravelCell.swift */; };
 		74BB430424FBC66700149010 /* StopsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BB430324FBC66700149010 /* StopsViewController.swift */; };
-		74BB430624FBC74600149010 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BB430524FBC74600149010 /* Place.swift */; };
 		74BB430824FBC91800149010 /* StopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BB430724FBC91800149010 /* StopCell.swift */; };
 		74D0293B250A9146005A9461 /* SpentMoneyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D0293A250A9146005A9461 /* SpentMoneyViewController.swift */; };
 		74FBF1F924D88A5F00DCB925 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FBF1F824D88A5F00DCB925 /* AppDelegate.swift */; };
@@ -38,11 +37,11 @@
 		74050C0F2525148400A77C33 /* Double+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Ex.swift"; sourceTree = "<group>"; };
 		74050C11252514F200A77C33 /* CLLocationCoordinate+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate+Ex.swift"; sourceTree = "<group>"; };
 		742D866A24F41DA3004695E7 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		743AC7762538B526007F215A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		744C11452522565B0013B260 /* UIViewController+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ex.swift"; sourceTree = "<group>"; };
-		744C1148252263630013B260 /* AlamofireViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireViewController.swift; sourceTree = "<group>"; };
 		745751DC24F12F6700FD25BF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7461C60524FE622F00E31274 /* UIButton+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ex.swift"; sourceTree = "<group>"; };
-		7461C60724FE9C0500E31274 /* CreateAccountViewController .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreateAccountViewController .swift"; sourceTree = "<group>"; };
+		7461C60724FE9C0500E31274 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		746757A925191C900096BD14 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		74A6941524DC6B8400AD6C9F /* CreateStopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateStopViewController.swift; sourceTree = "<group>"; };
 		74BB42CF24F8139300149010 /* TravelListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListViewController.swift; sourceTree = "<group>"; };
@@ -50,7 +49,6 @@
 		74BB42D324F815B900149010 /* Stop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
 		74BB42D524F8290A00149010 /* TravelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelCell.swift; sourceTree = "<group>"; };
 		74BB430324FBC66700149010 /* StopsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopsViewController.swift; sourceTree = "<group>"; };
-		74BB430524FBC74600149010 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		74BB430724FBC91800149010 /* StopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopCell.swift; sourceTree = "<group>"; };
 		74D0293A250A9146005A9461 /* SpentMoneyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpentMoneyViewController.swift; sourceTree = "<group>"; };
 		74FBF1F524D88A5F00DCB925 /* TravelApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,12 +74,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		744C1147252263520013B260 /* TempAlamofire */ = {
+		743AC79F25404A09007F215A /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				744C1148252263630013B260 /* AlamofireViewController.swift */,
+				74BB430724FBC91800149010 /* StopCell.swift */,
+				74BB42D524F8290A00149010 /* TravelCell.swift */,
 			);
-			path = TempAlamofire;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		7461C60224FE613B00E31274 /* Extensions */ = {
@@ -98,32 +97,30 @@
 		74BB42FF24FBC41E00149010 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				74BB42CF24F8139300149010 /* TravelListViewController.swift */,
 				742D866A24F41DA3004695E7 /* WelcomeViewController.swift */,
-				74A6941524DC6B8400AD6C9F /* CreateStopViewController.swift */,
+				7461C60724FE9C0500E31274 /* RegistrationViewController.swift */,
 				745751DC24F12F6700FD25BF /* LoginViewController.swift */,
+				74BB42CF24F8139300149010 /* TravelListViewController.swift */,
+				74A6941524DC6B8400AD6C9F /* CreateStopViewController.swift */,
 				74D0293A250A9146005A9461 /* SpentMoneyViewController.swift */,
 				74BB430324FBC66700149010 /* StopsViewController.swift */,
-				7461C60724FE9C0500E31274 /* CreateAccountViewController .swift */,
 				746757A925191C900096BD14 /* MapViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		74BB430024FBC45C00149010 /* Cells */ = {
+		74BB430024FBC45C00149010 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				74BB42D524F8290A00149010 /* TravelCell.swift */,
-				74BB430724FBC91800149010 /* StopCell.swift */,
+				743AC79F25404A09007F215A /* Cells */,
 			);
-			path = Cells;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		74BB430124FBC4C700149010 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				74BB42D124F8141B00149010 /* Travel.swift */,
-				74BB430524FBC74600149010 /* Place.swift */,
 				74BB42D324F815B900149010 /* Stop.swift */,
 			);
 			path = Models;
@@ -140,10 +137,11 @@
 		74FBF1EC24D88A5E00DCB925 = {
 			isa = PBXGroup;
 			children = (
+				74FBF1FA24D88A5F00DCB925 /* SceneDelegate.swift */,
 				74FBF1F724D88A5F00DCB925 /* TravelApp */,
 				74BB42FF24FBC41E00149010 /* Controllers */,
 				7461C60224FE613B00E31274 /* Extensions */,
-				74BB430024FBC45C00149010 /* Cells */,
+				74BB430024FBC45C00149010 /* Views */,
 				74BB430124FBC4C700149010 /* Models */,
 				74BB430224FBC4E500149010 /* Resources */,
 				74FBF1F624D88A5F00DCB925 /* Products */,
@@ -163,12 +161,11 @@
 		74FBF1F724D88A5F00DCB925 /* TravelApp */ = {
 			isa = PBXGroup;
 			children = (
-				744C1147252263520013B260 /* TempAlamofire */,
 				74FBF1F824D88A5F00DCB925 /* AppDelegate.swift */,
-				74FBF1FA24D88A5F00DCB925 /* SceneDelegate.swift */,
 				74FBF1FE24D88A5F00DCB925 /* Main.storyboard */,
 				74FBF20324D88A6200DCB925 /* LaunchScreen.storyboard */,
 				74FBF20624D88A6200DCB925 /* Info.plist */,
+				743AC7762538B526007F215A /* GoogleService-Info.plist */,
 			);
 			path = TravelApp;
 			sourceTree = "<group>";
@@ -251,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74FBF20524D88A6200DCB925 /* LaunchScreen.storyboard in Resources */,
+				743AC7772538B526007F215A /* GoogleService-Info.plist in Resources */,
 				74FBF20224D88A6200DCB925 /* Assets.xcassets in Resources */,
 				74FBF20024D88A5F00DCB925 /* Main.storyboard in Resources */,
 			);
@@ -317,10 +315,8 @@
 				74BB42D224F8141B00149010 /* Travel.swift in Sources */,
 				74BB430424FBC66700149010 /* StopsViewController.swift in Sources */,
 				74FBF1FB24D88A5F00DCB925 /* SceneDelegate.swift in Sources */,
-				74BB430624FBC74600149010 /* Place.swift in Sources */,
 				745751DD24F12F6700FD25BF /* LoginViewController.swift in Sources */,
-				7461C60824FE9C0500E31274 /* CreateAccountViewController .swift in Sources */,
-				744C1149252263630013B260 /* AlamofireViewController.swift in Sources */,
+				7461C60824FE9C0500E31274 /* RegistrationViewController.swift in Sources */,
 				74BB430824FBC91800149010 /* StopCell.swift in Sources */,
 				7461C60624FE622F00E31274 /* UIButton+Ex.swift in Sources */,
 				74D0293B250A9146005A9461 /* SpentMoneyViewController.swift in Sources */,

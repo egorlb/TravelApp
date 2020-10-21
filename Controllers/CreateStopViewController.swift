@@ -1,5 +1,5 @@
 import UIKit
-
+import FirebaseDatabase
 protocol CreateStopViewControllerDelegate {
     func didCreate(stop: Stop)
 }
@@ -11,13 +11,15 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
     @IBOutlet weak var spentMoney: UILabel!
     @IBOutlet weak var stepperView: UIView!
     @IBOutlet weak var chooseTransport: UISegmentedControl!
-    @IBOutlet weak var chooseTransportBtn: UISegmentedControl!
+    @IBOutlet weak var rateLabel: UILabel!
+    @IBOutlet weak var chooseTransportBtnx: UISegmentedControl!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var nameTextField: UITextField!
     
     // MARK: - Properties
     
+    var count = 0
     var stop: Stop?
     var delegate: CreateStopViewControllerDelegate?
     
@@ -44,21 +46,35 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
         present(spentVC, animated: true, completion: nil)
     }
     
-    @IBAction func minusClicked(_ sender: Any) {
-    }
-   
-    @IBAction func plusClicked(_ sender: Any) {
-        
+    @IBAction func decreaseButtonRating(_ sender: Any) {
+        if count > 0 {
+            count -= 1
+        }
+        rateLabel.text = "\(count)"
     }
     
-    @IBAction func saveClicked(_ sender: Any) {
-        let stop = Stop()
-        stop.name = "Belarus"
-        stop.rating = 5
-        stop.location = .zero
-        stop.description = "Minsk"
-        stop.spentMoney = spentMoney.text ?? ""
-        delegate?.didCreate(stop: stop)
+    @IBAction func increaseButtonRating(_ sender: Any) {
+        if count < 5 {
+            count += 1
+            rateLabel.text = "\(count)"
+        }
+    }
+    
+    @IBAction func saveClickedButton(_ sender: Any) {
+        if stop != nil {
+            stop?.name = nameTextField.text ?? ""
+            sendToServer(stop: stop!)
+        } else {
+            let id = UUID().uuidString
+            let stop = Stop(id: id)
+            stop.name = "Belarus"
+            stop.rate = 5
+            stop.location = .zero
+            stop.description = "Minsk"
+            stop.spentMoney = spentMoney.text ?? ""
+            delegate?.didCreate(stop: stop)
+            sendToServer(stop: stop)
+        }
         navigationController?.popViewController(animated: true)
     }
     
@@ -71,7 +87,6 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
         
         mapVC.closure = { point in
             self.locationLabel.text = "\(point.x) - \(point.y)"
-            
         }
     }
     
@@ -80,4 +95,14 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
     func spent(money: Double, currency: Currency) {
         spentMoney.text = String(money) + currency.rawValue
     }
+    
+    func sendToServer(stop: Stop)  {
+          let database = Database.database().reference()
+          let child = database.child("stops").child("\(stop.id)")
+          child.setValue(stop.json) { (error, ref) in
+              if let newerror = error {
+                  print(newerror,ref)
+              }
+          }
+      }
 }
