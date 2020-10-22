@@ -7,6 +7,7 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // MARK: - Outlets
     
+    @IBOutlet weak var editBarButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Variables
@@ -35,13 +36,21 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
             let firstTextField = alertController.textFields?[0]
             let secondTextField = alertController.textFields?[1]
             if let travelName = firstTextField?.text, let travelDescription = secondTextField?.text {
-                if let userId = Auth.auth().currentUser?.uid {
+                if travelName.isEmpty && travelDescription.isEmpty {
+                    var message: String = ""
+                    message = "Поле не заполнено"
+                    let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    
+                    self.present(alertController, animated: true, completion: nil)
+                }
+//                if let userId = Auth.auth().currentUser?.uid {
                     let id = UUID().uuidString
-                    let travel = Travel(userId: userId, id: id, name: travelName, description: travelDescription)
+                    let travel = Travel(/*userId: userId,*/ id: id, name: travelName, description: travelDescription)
                     self.travels.append(travel)
                     self.sendToServer(travel: travel)
                     self.tableView.reloadData()
-                }
+//                }
             }
         }
         let cancelAction = UIAlertAction(title: "Отменить", style: .cancel) { (action) in
@@ -56,6 +65,16 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
             textField.placeholder = "Введите описание"
         }
         present(alertController, animated: true, completion: nil)
+    }
+    
+    @IBAction func tappedEditButton(_ sender: UIBarButtonItem) {
+        if tableView.isEditing {
+            tableView.setEditing(false, animated: true)
+            editBarButton.title = "Edit"
+        } else {
+            tableView.setEditing(true, animated: true)
+            editBarButton.title = "Done"
+        }
     }
     
     // MARK: - Functions
@@ -74,11 +93,12 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
                 if let travelJson = item as? [String: Any] {
                     if let id = travelJson["id"] as? String,
                         let name = travelJson["name"] as? String,
-                        let description = travelJson["description"] as? String,
-                        let userId = Auth.auth().currentUser?.uid {
-                        let travel = Travel(userId: userId, id: id, name: name, description: description)
+                        let description = travelJson["description"] as? String {
+//                        let userId = Auth.auth().currentUser?.uid {
+                        let travel = Travel(/*userId: userId,*/ id: id, name: name, description: description)
                         self.travels.append(travel)
                         self.tableView.reloadData()
+//                    }
                     }
                 }
             }
@@ -141,7 +161,23 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
         for star in 0..<travel.averageRate {
             cell.starsImageView[star].isHighlighted = true
         }
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.travels.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        travels.swapAt(sourceIndexPath.row, destinationIndexPath.row)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -153,4 +189,6 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
         stopVC.travel = travels[indexPath.row]
         navigationController?.pushViewController(stopVC, animated: true)
     }
+    
+    
 }

@@ -18,8 +18,7 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         
         let longTapGesture = UILongPressGestureRecognizer(target: self,
-                                                        action: #selector(longTap(sender:))
-            )
+                                                        action: #selector(longTap(sender:)))
         mapView.addGestureRecognizer(longTapGesture)
     }
     

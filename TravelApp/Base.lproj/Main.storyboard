@@ -646,10 +646,7 @@
                                             <constraint firstAttribute="width" constant="19" id="y4B-QS-olU"/>
                                         </constraints>
                                         <connections>
-                                            <action destination="Sm2-b0-6Sx" eventType="touchUpInside" id="yKY-BN-7Gr">
-                                                <string key="selector">hidePasswordEntry
-:</string>
-                                            </action>
+                                            <action selector="hidePasswordEntry:" destination="Sm2-b0-6Sx" eventType="touchUpInside" id="jRB-IH-t4R"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -904,40 +901,6 @@
             </objects>
             <point key="canvasLocation" x="-447" y="-1316"/>
         </scene>
-        <!--Alamofire View Controller-->
-        <scene sceneID="i00-lg-Na7">
-            <objects>
-                <viewController id="CFp-Wo-CSI" customClass="AlamofireViewController" customModule="TravelApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Uyp-I1-d1E">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9Kf-RH-LOf">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="9Kf-RH-LOf" firstAttribute="top" secondItem="zje-5X-0Le" secondAttribute="top" id="29l-n5-ce3"/>
-                            <constraint firstItem="zje-5X-0Le" firstAttribute="trailing" secondItem="9Kf-RH-LOf" secondAttribute="trailing" id="2KI-nq-tYH"/>
-                            <constraint firstItem="9Kf-RH-LOf" firstAttribute="leading" secondItem="zje-5X-0Le" secondAttribute="leading" id="MsH-Ik-o5R"/>
-                            <constraint firstItem="zje-5X-0Le" firstAttribute="bottom" secondItem="9Kf-RH-LOf" secondAttribute="bottom" id="PZQ-CK-O94"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="zje-5X-0Le"/>
-                    </view>
-                    <connections>
-                        <outlet property="textView" destination="9Kf-RH-LOf" id="ZN5-Kr-Vd0"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yUV-lb-w2v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2743" y="-1982"/>
-        </scene>
         <!--Map View Controller-->
         <scene sceneID="wY8-Q3-LKt">
             <objects>
@@ -1104,14 +1067,23 @@
                         <viewLayoutGuide key="safeArea" id="Bup-R7-hbs"/>
                     </view>
                     <navigationItem key="navigationItem" id="v4H-tv-k0y">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="7AU-OH-hSX">
-                            <color key="tintColor" red="0.51372549020000002" green="0.53725490200000003" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="plusButton:" destination="IYq-de-6BO" id="X8B-XW-yJ9"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Edit" id="c7J-Oi-XED">
+                                <color key="tintColor" red="0.51372549020000002" green="0.53725490200000003" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="tappedEditButton:" destination="IYq-de-6BO" id="B4x-A3-g1P"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="add" id="7AU-OH-hSX">
+                                <color key="tintColor" red="0.51372549020000002" green="0.53725490200000003" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="plusButton:" destination="IYq-de-6BO" id="X8B-XW-yJ9"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="editBarButton" destination="c7J-Oi-XED" id="d1r-an-maf"/>
                         <outlet property="tableView" destination="Klq-gC-Was" id="9ZQ-bG-TaQ"/>
                     </connections>
                 </viewController>
