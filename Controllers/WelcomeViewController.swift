@@ -14,6 +14,8 @@ class WelcomeViewController: UIViewController {
         setPropertiesButton()
     }
     
+    
+    
     // MARK: - Actions
     
     @IBAction func createAccount(_ sender: UIButton) {

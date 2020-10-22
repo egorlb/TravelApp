@@ -47,7 +47,7 @@ class LoginViewController: UIViewController {
         sender.setAnimationForButton()
     }
     
-    @IBAction func changeIcon(_ sender: UIButton) {
+    @IBAction func hidePasswordEntry(_ sender: UIButton) {
         if iconBtn {
             iconImage.image = UIImage(systemName: "eye")
             iconBtn = false
@@ -57,6 +57,11 @@ class LoginViewController: UIViewController {
             iconBtn = true
             passwordTextField.isSecureTextEntry = true
         }
+    }
+    
+    @IBAction func didTapForgotPasswordButton(_ sender: Any) {
+        let forgotVC = ForgotPasswordViewController.fromStoryboard() as! ForgotPasswordViewController
+        self.navigationController?.pushViewController(forgotVC, animated: true)
     }
 }
 

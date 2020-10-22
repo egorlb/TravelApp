@@ -529,34 +529,15 @@
                                     <action selector="didTapCreateButton:" destination="t0i-h1-sgl" eventType="touchUpInside" id="Ffv-L0-efa"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h4g-O9-RMz">
-                                <rect key="frame" x="24" y="354" width="163" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="HrI-Ve-kJF"/>
-                                </constraints>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Forgot your password?">
-                                            <attributes>
-                                                <color key="NSColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                <font key="NSFont" size="16" name="Avenir-Light"/>
-                                                <integer key="NSUnderline" value="1"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="vYH-gL-1hP" firstAttribute="leading" secondItem="mDd-zf-NPB" secondAttribute="leading" constant="24" id="0ft-dv-epN"/>
                             <constraint firstItem="Bnl-el-Ue4" firstAttribute="leading" secondItem="mDd-zf-NPB" secondAttribute="leading" constant="24" id="12o-j8-bR5"/>
-                            <constraint firstItem="h4g-O9-RMz" firstAttribute="leading" secondItem="mDd-zf-NPB" secondAttribute="leading" constant="24" id="6Sq-i0-Ldq"/>
                             <constraint firstItem="D1S-q3-Qf8" firstAttribute="top" secondItem="vYH-gL-1hP" secondAttribute="bottom" constant="24" id="FwS-W3-fnB"/>
                             <constraint firstItem="960-aN-X0B" firstAttribute="top" secondItem="D1S-q3-Qf8" secondAttribute="bottom" constant="12" id="HNk-nB-1rb"/>
                             <constraint firstItem="Bnl-el-Ue4" firstAttribute="top" secondItem="960-aN-X0B" secondAttribute="bottom" constant="12" id="IqD-T8-l0Y"/>
                             <constraint firstItem="D1S-q3-Qf8" firstAttribute="leading" secondItem="mDd-zf-NPB" secondAttribute="leading" constant="24" id="Suj-uV-2sH"/>
-                            <constraint firstItem="h4g-O9-RMz" firstAttribute="top" secondItem="Bnl-el-Ue4" secondAttribute="bottom" constant="75" id="WiP-De-Hit"/>
                             <constraint firstItem="mDd-zf-NPB" firstAttribute="trailing" secondItem="Bnl-el-Ue4" secondAttribute="trailing" constant="24" id="aDz-35-I0F"/>
                             <constraint firstItem="960-aN-X0B" firstAttribute="leading" secondItem="mDd-zf-NPB" secondAttribute="leading" constant="24" id="fJj-9h-JRR"/>
                             <constraint firstItem="mDd-zf-NPB" firstAttribute="trailing" secondItem="D1S-q3-Qf8" secondAttribute="trailing" constant="24" id="g37-DW-Huc"/>
@@ -665,7 +646,10 @@
                                             <constraint firstAttribute="width" constant="19" id="y4B-QS-olU"/>
                                         </constraints>
                                         <connections>
-                                            <action selector="changeIcon:" destination="Sm2-b0-6Sx" eventType="touchUpInside" id="yKY-BN-7Gr"/>
+                                            <action destination="Sm2-b0-6Sx" eventType="touchUpInside" id="yKY-BN-7Gr">
+                                                <string key="selector">hidePasswordEntry
+:</string>
+                                            </action>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -727,6 +711,9 @@
                                         </fragment>
                                     </attributedString>
                                 </state>
+                                <connections>
+                                    <action selector="didTapForgotPasswordButton:" destination="Sm2-b0-6Sx" eventType="touchUpInside" id="qu2-KG-0BE"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -763,7 +750,7 @@
         <!--Forgot password?-->
         <scene sceneID="Gal-xS-P7n">
             <objects>
-                <viewController id="v5T-k2-4Gu" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ForgotPasswordViewController" id="v5T-k2-4Gu" customClass="ForgotPasswordViewController" customModule="TravelApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sSf-zA-qPD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -775,9 +762,12 @@
                                     <constraint firstAttribute="height" constant="52" id="KVs-g0-RvQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
-                                <state key="normal" title="RESET PASSWORD">
+                                <state key="normal" title="Reset Password">
                                     <color key="titleColor" red="0.99990516900000004" green="1" blue="0.99987047910000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="didTapResetButton:" destination="v5T-k2-4Gu" eventType="touchUpInside" id="rzb-ND-KHZ"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Fh-PQ-BO3">
                                 <rect key="frame" x="24" y="214" width="327" height="1"/>
@@ -828,6 +818,9 @@
                         <viewLayoutGuide key="safeArea" id="OJB-kQ-xxg"/>
                     </view>
                     <navigationItem key="navigationItem" title="Forgot password?" id="AEG-OE-ygW"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="Y9q-Q3-Zjk" id="fYj-WI-g5k"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DPg-f9-9gG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
