@@ -8,18 +8,19 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
 
     // MARK: - Outlets
     
-    @IBOutlet weak var spentMoney: UILabel!
+    @IBOutlet weak var spentMoneyLabel: UILabel!
     @IBOutlet weak var stepperView: UIView!
-    @IBOutlet weak var chooseTransport: UISegmentedControl!
+    @IBOutlet weak var chooseTransportSegmentedControl: UISegmentedControl!
     @IBOutlet weak var rateLabel: UILabel!
-    @IBOutlet weak var chooseTransportBtnx: UISegmentedControl!
     @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var nameTextField: UITextField!
     
     // MARK: - Properties
     
     var count = 0
+    var travelId: String = ""
+    var money: Double = 0
     var stop: Stop?
     var delegate: CreateStopViewControllerDelegate?
     
@@ -29,11 +30,13 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
         super.viewDidLoad()
         
         stepperView.layer.borderWidth = 1
-        stepperView.layer.borderColor = #colorLiteral(red: 0.5137254902, green: 0.537254902, blue: 0.9098039216, alpha: 1)
+        stepperView.layer.borderColor = UIColor(named: "purple")?.cgColor
         stepperView.layer.cornerRadius = 4
         
+        setupPropertiesForNavigationBar()
+        
         if let stop = stop {
-            spentMoney.text = String(stop.spentMoney)
+            spentMoneyLabel.text = String(stop.spentMoney)
             nameTextField.text = stop.name
         }
     }
@@ -60,18 +63,15 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
         }
     }
     
-    @IBAction func saveClickedButton(_ sender: Any) {
-        if stop != nil {
-            stop?.name = nameTextField.text ?? ""
-            sendToServer(stop: stop!)
+    @objc func saveClickedButton(sender: UIBarButtonItem) {
+        if let stop = stop {
+            updateStop(stop: stop)
+            sendToServer(stop: stop)
         } else {
             let id = UUID().uuidString
-            let stop = Stop(id: id)
-            stop.name = "Belarus"
-            stop.rate = 5
-            stop.location = .zero
-            stop.description = "Minsk"
-            stop.spentMoney = spentMoney.text ?? ""
+            let stop = Stop(id: id, travelId: travelId)
+            updateStop(stop: stop)
+            
             delegate?.didCreate(stop: stop)
             sendToServer(stop: stop)
         }
@@ -92,17 +92,45 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
     
     // MARK: - Functions
     
+    func setupPropertiesForNavigationBar() {
+         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveClickedButton(sender:)))
+    }
+    
     func spent(money: Double, currency: Currency) {
-        spentMoney.text = String(money) + currency.rawValue
+        spentMoneyLabel.text = String(money) + currency.rawValue
+        self.money = money
+    }
+    
+    func updateStop(stop: Stop) {
+        if let rating = rateLabel.text, let changeRating = Int(rating) {
+            stop.rate = changeRating
+        }
+        if let name = nameTextField.text {
+            stop.name = name
+        }
+        if let spentMoney = spentMoneyLabel.text {
+            stop.spentMoney = spentMoney
+        }
+        stop.location = .zero
+        switch chooseTransportSegmentedControl.selectedSegmentIndex {
+        case 0:
+            stop.transport = .airplane
+        case 1:
+            stop.transport = .train
+        case 2:
+            stop.transport = .car
+        default:
+            break
+        }
     }
     
     func sendToServer(stop: Stop)  {
-          let database = Database.database().reference()
-          let child = database.child("stops").child("\(stop.id)")
-          child.setValue(stop.json) { (error, ref) in
-              if let newerror = error {
-                  print(newerror,ref)
-              }
-          }
-      }
+        let database = Database.database().reference()
+        let child = database.child("stops").child("\(stop.id)")
+        child.setValue(stop.json) { (error, ref) in
+            if let newerror = error {
+                print(newerror,ref)
+            }
+        }
+    }
 }

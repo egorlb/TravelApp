@@ -7,8 +7,9 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // MARK: - Outlets
     
-    @IBOutlet weak var editBarButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
+    var editBarButton: UIBarButtonItem!
+
     
     // MARK: - Variables
     
@@ -26,11 +27,12 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
         getStopsFromServer()
 
         tableView.tableFooterView = UIView()
+        setupPropertiesForNavigationBar()
     }
     
     // MARK: - Actions
     
-    @IBAction func plusButton(_ sender: Any) {
+    @objc func tappedAddButton(sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Вы хотите добавить путешествие?", message: "Введите название и описание", preferredStyle: .alert)
         let addAction = UIAlertAction(title: "Добавить", style: .default) { (action) in
             let firstTextField = alertController.textFields?[0]
@@ -44,13 +46,13 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
                     
                     self.present(alertController, animated: true, completion: nil)
                 }
-//                if let userId = Auth.auth().currentUser?.uid {
+                if let userId = Auth.auth().currentUser?.uid {
                     let id = UUID().uuidString
-                    let travel = Travel(/*userId: userId,*/ id: id, name: travelName, description: travelDescription)
+                    let travel = Travel(userId: userId, id: id, name: travelName, description: travelDescription)
                     self.travels.append(travel)
                     self.sendToServer(travel: travel)
                     self.tableView.reloadData()
-//                }
+                }
             }
         }
         let cancelAction = UIAlertAction(title: "Отменить", style: .cancel) { (action) in
@@ -67,24 +69,37 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
         present(alertController, animated: true, completion: nil)
     }
     
-    @IBAction func tappedEditButton(_ sender: UIBarButtonItem) {
+    @objc func tappedEditButton(sender: UIBarButtonItem) {
         if tableView.isEditing {
             tableView.setEditing(false, animated: true)
             editBarButton.title = "Edit"
         } else {
             tableView.setEditing(true, animated: true)
+//            navigationItem.leftBarButtonItem = editBarButton
             editBarButton.title = "Done"
         }
     }
     
     // MARK: - Functions
     
+    func setupPropertiesForNavigationBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tappedAddButton(sender:)))
+        
+        self.editBarButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(tappedEditButton(sender:)))
+        self.navigationItem.leftBarButtonItem = self.editBarButton
+        
+        self.navigationController?.navigationBar.tintColor = UIColor(named: "purple")
+    }
+    
     func sendToServer(travel: Travel)  {
+        // PROGRESS HUD
         let database = Database.database().reference()
         let child = database.child("travels").child("\(travel.id)")
         child.setValue(travel.json) { (error, ref) in
+            // PROGRESS HUD Dismiss
         }
     }
+    
     func getTravelFromServer() {
         let database = Database.database().reference()
         database.child("travels").observeSingleEvent(of: .value) { (snapshot) in
@@ -93,12 +108,11 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
                 if let travelJson = item as? [String: Any] {
                     if let id = travelJson["id"] as? String,
                         let name = travelJson["name"] as? String,
-                        let description = travelJson["description"] as? String {
-//                        let userId = Auth.auth().currentUser?.uid {
-                        let travel = Travel(/*userId: userId,*/ id: id, name: name, description: description)
+                        let description = travelJson["description"] as? String,
+                        let userId = Auth.auth().currentUser?.uid {
+                        let travel = Travel(userId: userId, id: id, name: name, description: description)
                         self.travels.append(travel)
                         self.tableView.reloadData()
-//                    }
                     }
                 }
             }
@@ -113,8 +127,9 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
             }
             for item in value.values {
                 if let stopJson = item as? [String: Any] {
-                    if let id = stopJson["id"] as? String {
-                        let stop = Stop(id: id)
+                    if let id = stopJson["id"] as? String,
+                        let travelId = stopJson["travelId"] as? String {
+                        let stop = Stop(id: id, travelId: travelId )
                         if let name = stopJson["name"] as? String {
                             stop.name = name
                         }
@@ -140,6 +155,12 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
                         }
                         if let currencyString = stopJson["currency"] as? String, let currency = Currency(rawValue: currencyString) {
                             stop.currency = currency
+                        }
+                        for travel in self.travels {
+                            if travel.id == travelId {
+                                travel.stops.append(stop)
+                                
+                            }
                         }
                     }
                 }

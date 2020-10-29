@@ -10,6 +10,8 @@
 		1B4A17689EFA670362D04BB6 /* Pods_TravelApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31ECC5883D6F165D202FFADE /* Pods_TravelApp.framework */; };
 		74050C102525148400A77C33 /* Double+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74050C0F2525148400A77C33 /* Double+Ex.swift */; };
 		74050C12252514F200A77C33 /* CLLocationCoordinate+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74050C11252514F200A77C33 /* CLLocationCoordinate+Ex.swift */; };
+		7412009F254207EE00E5B280 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7412009E254207EE00E5B280 /* LoadingViewController.swift */; };
+		741200A5254AFDE800E5B280 /* DotsActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741200A4254AFDE700E5B280 /* DotsActivityIndicator.swift */; };
 		742D866B24F41DA3004695E7 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742D866A24F41DA3004695E7 /* WelcomeViewController.swift */; };
 		743AC7772538B526007F215A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 743AC7762538B526007F215A /* GoogleService-Info.plist */; };
 		743AC7A12540E711007F215A /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743AC7A02540E711007F215A /* ForgotPasswordViewController.swift */; };
@@ -37,6 +39,8 @@
 		31ECC5883D6F165D202FFADE /* Pods_TravelApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TravelApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74050C0F2525148400A77C33 /* Double+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Ex.swift"; sourceTree = "<group>"; };
 		74050C11252514F200A77C33 /* CLLocationCoordinate+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate+Ex.swift"; sourceTree = "<group>"; };
+		7412009E254207EE00E5B280 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		741200A4254AFDE700E5B280 /* DotsActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotsActivityIndicator.swift; sourceTree = "<group>"; };
 		742D866A24F41DA3004695E7 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		743AC7762538B526007F215A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		743AC7A02540E711007F215A /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
@@ -107,7 +111,9 @@
 				74D0293A250A9146005A9461 /* SpentMoneyViewController.swift */,
 				74BB430324FBC66700149010 /* StopsViewController.swift */,
 				746757A925191C900096BD14 /* MapViewController.swift */,
+				741200A4254AFDE700E5B280 /* DotsActivityIndicator.swift */,
 				743AC7A02540E711007F215A /* ForgotPasswordViewController.swift */,
+				7412009E254207EE00E5B280 /* LoadingViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -313,9 +319,11 @@
 				74BB42D024F8139300149010 /* TravelListViewController.swift in Sources */,
 				74050C102525148400A77C33 /* Double+Ex.swift in Sources */,
 				74BB42D624F8290A00149010 /* TravelCell.swift in Sources */,
+				7412009F254207EE00E5B280 /* LoadingViewController.swift in Sources */,
 				743AC7A12540E711007F215A /* ForgotPasswordViewController.swift in Sources */,
 				742D866B24F41DA3004695E7 /* WelcomeViewController.swift in Sources */,
 				74050C12252514F200A77C33 /* CLLocationCoordinate+Ex.swift in Sources */,
+				741200A5254AFDE800E5B280 /* DotsActivityIndicator.swift in Sources */,
 				74BB42D224F8141B00149010 /* Travel.swift in Sources */,
 				74BB430424FBC66700149010 /* StopsViewController.swift in Sources */,
 				74FBF1FB24D88A5F00DCB925 /* SceneDelegate.swift in Sources */,

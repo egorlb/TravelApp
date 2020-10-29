@@ -4,14 +4,14 @@ import UIKit
 // MARK: Classes
 
 class Travel {
-//    var userId: String
+    var userId: String
     var id: String
     var name: String
     var desctiption: String
     var stops: [Stop] = []
     
-    init(/*userId: String,*/ id: String, name: String, description: String) {
-//        self.userId = userId
+    init(userId: String, id: String, name: String, description: String) {
+        self.userId = userId
         self.id = id
         self.name = name
         self.desctiption = description

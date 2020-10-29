@@ -9,6 +9,8 @@ class StopCell: UITableViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var spentMoneyLabel: UILabel!
     @IBOutlet weak var transportImage: UIImageView!
+    @IBOutlet var starsImageView: [UIImageView]!
+    
     @IBOutlet weak var viewForCell: UIView!
     
     

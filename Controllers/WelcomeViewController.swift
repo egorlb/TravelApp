@@ -1,6 +1,7 @@
 
 
 import UIKit
+import FirebaseRemoteConfig
 
 class WelcomeViewController: UIViewController {
     
@@ -12,9 +13,16 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setPropertiesButton()
+        self.navigationController?.navigationBar.tintColor = UIColor(named: "purple")
+        
+        let remoteConfig = RemoteConfig.remoteConfig()
+        let loginText = remoteConfig["loginButtonText"].stringValue
+        loginButton.setTitle(loginText, for: .normal)
+        let isNeedToShowLoginButton = remoteConfig["isNeedToShowLoginButton"].boolValue
+        if isNeedToShowLoginButton == true {
+            loginButton.isHidden = false
+        }
     }
-    
-    
     
     // MARK: - Actions
     
