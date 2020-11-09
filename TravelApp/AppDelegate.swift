@@ -2,12 +2,14 @@
 import UIKit
 import Firebase
 import FirebaseRemoteConfig
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        print("RealmFile:", Realm.Configuration.defaultConfiguration.fileURL)
         
         return true
     }

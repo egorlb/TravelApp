@@ -1,10 +1,3 @@
-//
-//  DotsActivityIndicator.swift
-//  Animation
-//
-//  Created by Zakhar Sidorov  on 10/8/20.
-//  Copyright © 2020 Zakhar Sidorov . All rights reserved.
-//
 
 import UIKit
 @IBDesignable

@@ -18,6 +18,8 @@ class RegistrationViewController: UIViewController {
         
         createButton.layer.cornerRadius = 4
         
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboardByTap)))
+        
     }
     
     // MARK: - Actions
@@ -26,7 +28,8 @@ class RegistrationViewController: UIViewController {
         guard let email = emailTextField.text, let password = passwordTextField.text else {
             return
         }
-        Auth.auth().createUser(withEmail: email, password: password) { (user, _) in
+        Auth.auth().createUser(withEmail: email, password: password) { [weak self] (user, _) in
+            guard let self = self else { return }
             var message: String = ""
             if user != nil {
                 message = "User was sucessfully created."
@@ -42,5 +45,9 @@ class RegistrationViewController: UIViewController {
             self.present(alertController, animated: true, completion: nil)
         }
         sender.setAnimationForButton()
+    }
+    
+    @objc func hideKeyboardByTap() {
+        view.endEditing(true)
     }
 }

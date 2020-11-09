@@ -2,16 +2,18 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import RealmSwift
 
 class TravelListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - Outlets
     
     @IBOutlet weak var tableView: UITableView!
-    var editBarButton: UIBarButtonItem!
+    var travelsNotification: NotificationToken!
 
-    
     // MARK: - Variables
+    
+    private let nameController = "Travel list"
     
     var travels: [Travel] = []
     
@@ -20,21 +22,27 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.reloadData()
         getTravelFromServer()
         getStopsFromServer()
-
-        tableView.tableFooterView = UIView()
-        setupPropertiesForNavigationBar()
+        travels = DatabaseManager.shared.getTravels()
+        observeTravels()
+        configureUI()
+        
+        let travelObjects = DatabaseManager.shared.getObjects(classType: RLMTravel.self)
+        let stopObjects = DatabaseManager.shared.getObjects(classType: RLMStop.self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setEditing(false, animated: true)
     }
     
     // MARK: - Actions
     
     @objc func tappedAddButton(sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Вы хотите добавить путешествие?", message: "Введите название и описание", preferredStyle: .alert)
-        let addAction = UIAlertAction(title: "Добавить", style: .default) { (action) in
+        let addAction = UIAlertAction(title: "Добавить", style: .default) { [weak self] (action) in
+            guard let self = self else { return }
             let firstTextField = alertController.textFields?[0]
             let secondTextField = alertController.textFields?[1]
             if let travelName = firstTextField?.text, let travelDescription = secondTextField?.text {
@@ -50,12 +58,13 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
                     let id = UUID().uuidString
                     let travel = Travel(userId: userId, id: id, name: travelName, description: travelDescription)
                     self.travels.append(travel)
-                    self.sendToServer(travel: travel)
                     self.tableView.reloadData()
+                    self.sendToServer(travel: travel)
+                    DatabaseManager.shared.saveTravelInDatabase(travel)
                 }
             }
         }
-        let cancelAction = UIAlertAction(title: "Отменить", style: .cancel) { (action) in
+        let cancelAction = UIAlertAction(title: "Отменить", style: .cancel) { [weak self] (action) in
         }
         alertController.addAction(addAction)
         alertController.addAction(cancelAction)
@@ -69,41 +78,39 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
         present(alertController, animated: true, completion: nil)
     }
     
-    @objc func tappedEditButton(sender: UIBarButtonItem) {
-        if tableView.isEditing {
-            tableView.setEditing(false, animated: true)
-            editBarButton.title = "Edit"
-        } else {
-            tableView.setEditing(true, animated: true)
-//            navigationItem.leftBarButtonItem = editBarButton
-            editBarButton.title = "Done"
-        }
+    @objc func hideKeyboardByTap() {
+        view.endEditing(true)
     }
     
     // MARK: - Functions
     
-    func setupPropertiesForNavigationBar() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tappedAddButton(sender:)))
-        
-        self.editBarButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(tappedEditButton(sender:)))
-        self.navigationItem.leftBarButtonItem = self.editBarButton
-        
+    func configureUI() {
+        let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tappedAddButton(sender:)))
+        let edit = self.editButtonItem
+        self.navigationItem.rightBarButtonItems = [add, edit]
         self.navigationController?.navigationBar.tintColor = UIColor(named: "purple")
+        self.title = nameController
+        tableView.tableFooterView = UIView()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.reloadData()
     }
     
     func sendToServer(travel: Travel)  {
-        // PROGRESS HUD
         let database = Database.database().reference()
         let child = database.child("travels").child("\(travel.id)")
         child.setValue(travel.json) { (error, ref) in
-            // PROGRESS HUD Dismiss
         }
     }
     
     func getTravelFromServer() {
         let database = Database.database().reference()
-        database.child("travels").observeSingleEvent(of: .value) { (snapshot) in
-            guard let value = snapshot.value as? [String: Any] else { return }
+        database.child("travels").observeSingleEvent(of: .value) { [weak self] (snapshot) in
+            guard let self = self else { return }
+            guard let value = snapshot.value as? [String: Any] else {
+                return
+            }
+            self.travels.removeAll()
             for item in value.values {
                 if let travelJson = item as? [String: Any] {
                     if let id = travelJson["id"] as? String,
@@ -121,8 +128,8 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func getStopsFromServer() {
         let database = Database.database().reference()
-        database.child("stops").observeSingleEvent(of: .value) { (snapshot) in
-            guard let value = snapshot.value as? [String: Any] else {
+        database.child("stops").observeSingleEvent(of: .value) { [weak self] (snapshot) in
+            guard let self = self, let value = snapshot.value as? [String: Any] else {
                 return
             }
             for item in value.values {
@@ -159,11 +166,30 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
                         for travel in self.travels {
                             if travel.id == travelId {
                                 travel.stops.append(stop)
-                                
                             }
                         }
                     }
                 }
+            }
+            
+            DatabaseManager.shared.clear()
+            for travel in self.travels {
+                DatabaseManager.shared.saveTravelInDatabase(travel)
+            }
+        }
+    }
+    
+    func observeTravels() {
+        let realm = try! Realm()
+        let travels = realm.objects(RLMTravel.self)
+        travelsNotification = travels.observe { (changes) in
+            switch changes {
+            case .initial(_):
+                break
+            case .update(_, let deletions, let insertions, let modifications):
+                print("Did update Travels!")
+            case .error(_):
+                break
             }
         }
     }
@@ -178,11 +204,10 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = tableView.dequeueReusableCell(withIdentifier: "TravelCell", for: indexPath) as! TravelCell
         let travel = travels[indexPath.row]
         cell.nameLabel.text = travel.name
-        cell.descriptionLabel.text = travel.desctiption
+        cell.descriptionLabel.text = travel.description
         for star in 0..<travel.averageRate {
             cell.starsImageView[star].isHighlighted = true
         }
-        
         return cell
     }
     
@@ -211,5 +236,8 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
         navigationController?.pushViewController(stopVC, animated: true)
     }
     
-    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        self.tableView.isEditing = editing
+    }
 }

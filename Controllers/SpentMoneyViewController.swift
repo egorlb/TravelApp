@@ -1,9 +1,10 @@
 
 import UIKit
+import RealmSwift
 
 // MARK: Enums
 
-enum Currency: String {
+enum Currency: String, RealmEnum {
     case none = ""
     case ruble = "₽"
     case euro =  "€"
@@ -56,8 +57,4 @@ class SpentMoneyViewController: UIViewController {
             dismiss(animated: true, completion: nil)
         }
     }
-    
-    
-    
-    // MARK: - Functions
 }

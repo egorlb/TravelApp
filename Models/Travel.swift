@@ -7,14 +7,14 @@ class Travel {
     var userId: String
     var id: String
     var name: String
-    var desctiption: String
+    var description: String
     var stops: [Stop] = []
     
     init(userId: String, id: String, name: String, description: String) {
         self.userId = userId
         self.id = id
         self.name = name
-        self.desctiption = description
+        self.description = description
     }
     
     var averageRate: Int {
@@ -30,7 +30,7 @@ class Travel {
     
     var json: [String: Any] {
         return ["name": name,
-                "description": desctiption,
+                "description": description,
                 "stops": stops.map({ $0.json })]
     }
 }

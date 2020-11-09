@@ -3,9 +3,13 @@ import UIKit
 
 class StopsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CreateStopViewControllerDelegate {
   
+    // MARK: - Variables
+    
+    private let nameController = "Stops"
+    var travel: Travel?
+
     // MARK: - Outlets
     
-    var travel: Travel?
     @IBOutlet weak var tableView: UITableView!
     
     // MARK: Lifecycle
@@ -13,11 +17,12 @@ class StopsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.tableFooterView = UIView()
-        setupPropertiesForNavigationBar()
-        
-        tableView.delegate = self
-        tableView.dataSource = self
+        configureUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setEditing(false, animated: true)
     }
     
     // MARK: - Actions
@@ -33,12 +38,23 @@ class StopsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func didCreate(stop: Stop) {
         travel?.stops.append(stop)
+        DatabaseManager.shared.saveTravelInDatabase(travel!)
         tableView.reloadData()
     }
     
-    func setupPropertiesForNavigationBar() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addStopClicked(sender:)))
+    func didUpdate(stop: Stop) {
+        DatabaseManager.shared.saveTravelInDatabase(travel!)
+    }
+    
+    func configureUI() {
+        let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addStopClicked(sender:)))
+        let edit = self.editButtonItem
+        self.navigationItem.rightBarButtonItems = [add,edit]
         self.navigationController?.navigationBar.tintColor = UIColor(named: "purple")
+        tableView.tableFooterView = UIView()
+        self.title = nameController
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     // MARK: - TableView
@@ -62,10 +78,7 @@ class StopsViewController: UIViewController, UITableViewDelegate, UITableViewDat
             } else if stop.transport == .car {
                 cell.transportImage.image = #imageLiteral(resourceName: "Car")
             }
-        }
-        
-        if let travel = travel?.averageRate {
-            for star in 0..<travel {
+            for star in 0..<stop.rate {
                 cell.starsImageView[star].isHighlighted = true
             }
         }
@@ -80,7 +93,27 @@ class StopsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         navigationController?.pushViewController(createVC, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.travel?.stops.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        travel?.stops.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 141
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        self.tableView.isEditing = editing
     }
 }

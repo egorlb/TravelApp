@@ -1,9 +1,10 @@
 
 import UIKit
+import RealmSwift
 
 // MARK: - Enums
 
-enum Transport: Int {
+enum Transport: Int, RealmEnum {
     case none, car, airplane, train
 }
 
@@ -13,7 +14,7 @@ class Stop {
     var id: String
     var travelId: String
     var name: String = ""
-    var spentMoney = ""
+    var spentMoney: String = ""
     var rate: Int = 0
     var location: CGPoint = .zero
     var transport: Transport = .none

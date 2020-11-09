@@ -10,5 +10,6 @@ target 'TravelApp' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'Firebase/RemoteConfig'
+  pod 'RealmSwift'
 
 end

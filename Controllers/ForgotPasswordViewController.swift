@@ -20,7 +20,8 @@ class ForgotPasswordViewController: UIViewController {
         guard let email = emailTextField.text else {
             return
         }
-        Auth.auth().sendPasswordReset(withEmail: email) { (error) in
+        Auth.auth().sendPasswordReset(withEmail: email) { [weak self] (error) in
+            guard let self = self else { return }
             var message: String = ""
             if email.isEmpty {
                 message = "Please fill out this field."

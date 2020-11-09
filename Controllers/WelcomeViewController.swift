@@ -19,8 +19,8 @@ class WelcomeViewController: UIViewController {
         let loginText = remoteConfig["loginButtonText"].stringValue
         loginButton.setTitle(loginText, for: .normal)
         let isNeedToShowLoginButton = remoteConfig["isNeedToShowLoginButton"].boolValue
-        if isNeedToShowLoginButton == true {
-            loginButton.isHidden = false
+        if isNeedToShowLoginButton == false {
+            loginButton.isHidden = true
         }
     }
     

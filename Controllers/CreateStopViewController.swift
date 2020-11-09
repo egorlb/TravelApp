@@ -1,7 +1,10 @@
+
 import UIKit
 import FirebaseDatabase
+
 protocol CreateStopViewControllerDelegate {
     func didCreate(stop: Stop)
+    func didUpdate(stop: Stop)
 }
 
 class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelegate {
@@ -14,13 +17,15 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
     @IBOutlet weak var rateLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
-    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var stopNameTextField: UITextField!
     
     // MARK: - Properties
     
     var count = 0
     var travelId: String = ""
-    var money: Double = 0
+    var selectedMoney: String = ""
+    var selectedCurrency: Currency = .none
+    var selectedLocation: CGPoint = .zero
     var stop: Stop?
     var delegate: CreateStopViewControllerDelegate?
     
@@ -29,15 +34,28 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        stepperView.layer.borderWidth = 1
-        stepperView.layer.borderColor = UIColor(named: "purple")?.cgColor
-        stepperView.layer.cornerRadius = 4
-        
-        setupPropertiesForNavigationBar()
+        configureUI()
         
         if let stop = stop {
             spentMoneyLabel.text = String(stop.spentMoney)
-            nameTextField.text = stop.name
+            stopNameTextField.text = stop.name
+            rateLabel.text = String(stop.rate)
+            descriptionTextView.text = stop.description
+            selectedMoney = stop.spentMoney
+            selectedCurrency = stop.currency
+            locationLabel.text = "\(stop.location.x)-\(stop.location.y)"
+            selectedLocation = stop.location
+            
+            switch stop.transport {
+            case .airplane:
+                chooseTransportSegmentedControl.selectedSegmentIndex = 0
+            case .train:
+                chooseTransportSegmentedControl.selectedSegmentIndex = 1
+            case .car:
+                chooseTransportSegmentedControl.selectedSegmentIndex = 2
+            case .none:
+                break
+            }
         }
     }
     
@@ -66,17 +84,21 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
     @objc func saveClickedButton(sender: UIBarButtonItem) {
         if let stop = stop {
             updateStop(stop: stop)
+            delegate?.didUpdate(stop: stop)
             sendToServer(stop: stop)
         } else {
             let id = UUID().uuidString
             let stop = Stop(id: id, travelId: travelId)
             updateStop(stop: stop)
-            
             delegate?.didCreate(stop: stop)
             sendToServer(stop: stop)
         }
         navigationController?.popViewController(animated: true)
     }
+    
+    @objc func hideKeyboardByTap() {
+             view.endEditing(true)
+         }
     
     @IBAction func transportSegmented(_ sender: Any) {
     }
@@ -92,26 +114,37 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
     
     // MARK: - Functions
     
-    func setupPropertiesForNavigationBar() {
-         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveClickedButton(sender:)))
+    func configureUI() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveClickedButton(sender:)))
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboardByTap)))
+        
+        stepperView.layer.borderWidth = 1
+        stepperView.layer.borderColor = UIColor(named: "purple")?.cgColor
+        stepperView.layer.cornerRadius = 4
     }
     
     func spent(money: Double, currency: Currency) {
         spentMoneyLabel.text = String(money) + currency.rawValue
-        self.money = money
+        selectedMoney = String(money)
+        selectedCurrency = currency
     }
     
     func updateStop(stop: Stop) {
         if let rating = rateLabel.text, let changeRating = Int(rating) {
             stop.rate = changeRating
         }
-        if let name = nameTextField.text {
+        if let name = stopNameTextField.text {
             stop.name = name
         }
         if let spentMoney = spentMoneyLabel.text {
             stop.spentMoney = spentMoney
         }
-        stop.location = .zero
+        stop.location = selectedLocation
+        stop.spentMoney = selectedMoney
+        stop.currency = selectedCurrency
+        stop.description = descriptionTextView.text
+        
         switch chooseTransportSegmentedControl.selectedSegmentIndex {
         case 0:
             stop.transport = .airplane
@@ -124,7 +157,7 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
         }
     }
     
-    func sendToServer(stop: Stop)  {
+    func sendToServer(stop: Stop) {
         let database = Database.database().reference()
         let child = database.child("stops").child("\(stop.id)")
         child.setValue(stop.json) { (error, ref) in
