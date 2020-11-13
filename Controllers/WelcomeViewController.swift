@@ -12,8 +12,7 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setPropertiesButton()
-        self.navigationController?.navigationBar.tintColor = UIColor(named: "purple")
+        configureUI()
         
         let remoteConfig = RemoteConfig.remoteConfig()
         let loginText = remoteConfig["loginButtonText"].stringValue
@@ -38,9 +37,11 @@ class WelcomeViewController: UIViewController {
     
     // MARK: - Functions
     
-    func setPropertiesButton() {
+    func configureUI() {
         loginButton.layer.cornerRadius = 4
         createButton.layer.cornerRadius = 4
+        self.navigationController?.navigationBar.tintColor = UIColor(named: "purple")
+        self.navigationItem.hidesBackButton = true
     }
 }
 

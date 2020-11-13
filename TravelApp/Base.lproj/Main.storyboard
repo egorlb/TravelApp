@@ -3,6 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -37,7 +38,7 @@
                                                             <constraint firstAttribute="height" constant="1" id="5KM-Y4-lVN"/>
                                                         </constraints>
                                                     </view>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PrH-co-U3I">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Country" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PrH-co-U3I">
                                                         <rect key="frame" x="83.5" y="12" width="282.5" height="17"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="17" id="wXc-X6-OOS"/>
@@ -210,8 +211,8 @@
                                                             <action selector="spentMoneyClicked:" destination="Myi-Pu-axb" eventType="touchUpInside" id="B2R-QH-pGN"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9999.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Em-nu-5Pz">
-                                                        <rect key="frame" x="84" y="13" width="40" height="15"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9999.0 $" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Em-nu-5Pz">
+                                                        <rect key="frame" x="84" y="13" width="51" height="15"/>
                                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="13"/>
                                                         <color key="textColor" red="0.066666666669999999" green="0.066666666669999999" blue="0.066666666669999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -293,12 +294,28 @@
                                             </textView>
                                         </subviews>
                                     </stackView>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fjA-Vj-5J9" customClass="DotsActivityIndicator" customModule="TravelApp" customModuleProvider="target">
+                                        <rect key="frame" x="67.5" y="288.5" width="240" height="90"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" red="0.0" green="0.69019607843137254" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="90" id="9hV-Ne-LuP"/>
+                                            <constraint firstAttribute="width" constant="240" id="Pw0-Hr-AK1"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="dotsCount">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="baf-ja-abU" firstAttribute="bottom" secondItem="JbD-GG-Fni" secondAttribute="bottom" id="9bG-9d-zTm"/>
                                     <constraint firstItem="baf-ja-abU" firstAttribute="width" secondItem="kWR-5x-jl9" secondAttribute="width" id="IUg-oC-xhI"/>
                                     <constraint firstItem="baf-ja-abU" firstAttribute="trailing" secondItem="JbD-GG-Fni" secondAttribute="trailing" id="Pjz-aA-jp7"/>
                                     <constraint firstItem="JbD-GG-Fni" firstAttribute="top" secondItem="baf-ja-abU" secondAttribute="top" id="VKh-Ey-hjp"/>
+                                    <constraint firstItem="fjA-Vj-5J9" firstAttribute="centerX" secondItem="fGc-eV-g2g" secondAttribute="centerX" id="ibJ-yR-FSs"/>
+                                    <constraint firstItem="fjA-Vj-5J9" firstAttribute="centerY" secondItem="fGc-eV-g2g" secondAttribute="centerY" id="qPd-e7-FZ1"/>
                                     <constraint firstItem="baf-ja-abU" firstAttribute="leading" secondItem="JbD-GG-Fni" secondAttribute="leading" id="uiA-nU-j0X"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="JbD-GG-Fni"/>
@@ -317,6 +334,7 @@
                     <connections>
                         <outlet property="chooseTransportSegmentedControl" destination="rlz-0e-cWN" id="rbi-H4-4cA"/>
                         <outlet property="descriptionTextView" destination="UFo-Ja-dXb" id="SeP-CC-Li4"/>
+                        <outlet property="dotsAnimationIndicator" destination="fjA-Vj-5J9" id="6Cd-ES-sF9"/>
                         <outlet property="locationLabel" destination="Q8X-7s-adB" id="Wes-Av-4Bb"/>
                         <outlet property="rateLabel" destination="ixS-9d-RqZ" id="KCI-U1-s74"/>
                         <outlet property="spentMoneyLabel" destination="6Em-nu-5Pz" id="SiK-la-1EB"/>
@@ -863,7 +881,6 @@
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="N5T-Kq-Bwq">
                                 <rect key="frame" x="16" y="203" width="343" height="30"/>
-                                <color key="backgroundColor" red="0.51372549020000002" green="0.53725490200000003" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="29" id="IFH-0K-UvV"/>
                                 </constraints>
@@ -872,7 +889,8 @@
                                     <segment title="€"/>
                                     <segment title="₽ "/>
                                 </segments>
-                                <color key="selectedSegmentTintColor" red="0.99990516900000004" green="1" blue="0.99987047910000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="selectedSegmentTintColor" name="purple"/>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -893,9 +911,9 @@
                         <viewLayoutGuide key="safeArea" id="Ghs-cu-itH"/>
                     </view>
                     <connections>
+                        <outlet property="choiceCurrencyControl" destination="N5T-Kq-Bwq" id="VTE-db-Zc5"/>
+                        <outlet property="inputTextField" destination="gI0-xL-V6U" id="y9S-t8-ar0"/>
                         <outlet property="readyButton" destination="2vh-Cu-0W3" id="zWY-NH-1MG"/>
-                        <outlet property="segmentMoney" destination="N5T-Kq-Bwq" id="VTE-db-Zc5"/>
-                        <outlet property="textField" destination="gI0-xL-V6U" id="y9S-t8-ar0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IAU-6t-Gzd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -942,10 +960,17 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zoI-Lu-IlY" customClass="DotsActivityIndicator" customModule="TravelApp" customModuleProvider="target">
                                 <rect key="frame" x="12.5" y="247.5" width="350" height="128"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" red="0.0" green="0.69019607843137254" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="350" id="0D0-1f-63H"/>
                                     <constraint firstAttribute="height" constant="128" id="q99-St-WDf"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="dotsCount">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -1266,5 +1291,8 @@
         <image name="plus" catalog="system" width="64" height="56"/>
         <image name="star" catalog="system" width="64" height="58"/>
         <image name="star.fill" catalog="system" width="64" height="58"/>
+        <namedColor name="purple">
+            <color red="0.51399999856948853" green="0.53700000047683716" blue="0.9100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

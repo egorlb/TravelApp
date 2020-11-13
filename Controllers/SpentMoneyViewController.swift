@@ -21,13 +21,14 @@ class SpentMoneyViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet weak var segmentMoney: UISegmentedControl!
-    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var choiceCurrencyControl: UISegmentedControl!
+    @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var readyButton: UIButton!
     
     
     // MARK: - Properties
     
+    var currency: Currency?
     var delegate: SpentMoneyViewControllerDelegate?
     
     // MARK: - Lifecycle
@@ -40,9 +41,10 @@ class SpentMoneyViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func doneClicked(_ sender: Any) {
-        if let text = textField.text, let money = Double(text) {
+        if let text = inputTextField.text, let money = Double(text) {
             var currency: Currency = .none
-            switch segmentMoney.selectedSegmentIndex {
+            
+            switch choiceCurrencyControl.selectedSegmentIndex {
             case 0:
                 currency = .dollar
             case 1:
@@ -65,10 +67,11 @@ class SpentMoneyViewController: UIViewController {
     
     func configureUI() {
         readyButton.layer.cornerRadius = 8
-        textField.layer.cornerRadius = 6
+        inputTextField.layer.cornerRadius = 6
+        choiceCurrencyControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.white], for: .selected)
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboardByTap)))
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: self.textField.frame.height))
-        textField.leftView = paddingView
-        textField.leftViewMode = UITextField.ViewMode.always
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: self.inputTextField.frame.height))
+        inputTextField.leftView = paddingView
+        inputTextField.leftViewMode = UITextField.ViewMode.always
     }
 }

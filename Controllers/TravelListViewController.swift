@@ -13,7 +13,7 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
 
     // MARK: - Variables
     
-    private let nameController = "Travel list"
+    private let nameController = "Путешествия"
     
     var travels: [Travel] = []
     
@@ -64,7 +64,7 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
             }
         }
-        let cancelAction = UIAlertAction(title: "Отменить", style: .cancel) { [weak self] (action) in
+        let cancelAction = UIAlertAction(title: "Отменить", style: .cancel) { (action) in
         }
         alertController.addAction(addAction)
         alertController.addAction(cancelAction)
@@ -85,14 +85,12 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
         let edit = self.editButtonItem
         self.navigationItem.rightBarButtonItems = [add, edit]
         self.navigationController?.navigationBar.tintColor = UIColor(named: "purple")
+        self.navigationItem.hidesBackButton = true
         self.title = nameController
         tableView.tableFooterView = UIView()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.reloadData()
-        
-        let nib = UINib(nibName: "TravelXibCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "TravelXibCell")
     }
     
     func sendToServer(travel: Travel)  {

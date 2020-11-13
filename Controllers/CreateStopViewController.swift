@@ -18,9 +18,10 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var stopNameTextField: UITextField!
+    @IBOutlet weak var dotsAnimationIndicator: DotsActivityIndicator!
     
     // MARK: - Properties
-    
+    private let nameController = "Остановка"
     var count = 0
     var travelId: String = ""
     var selectedMoney: String = ""
@@ -93,15 +94,18 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
             delegate?.didCreate(stop: stop)
             sendToServer(stop: stop)
         }
-        navigationController?.popViewController(animated: true)
+        dotsAnimationIndicator.startAnimation()
+        dotsAnimationIndicator.isHidden = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: { [weak self] in
+            guard let self = self else { return }
+            self.dotsAnimationIndicator.stopAnimation()
+            self.navigationController?.popViewController(animated: true )
+        })
     }
-    
+
     @objc func hideKeyboardByTap() {
              view.endEditing(true)
          }
-    
-    @IBAction func transportSegmented(_ sender: Any) {
-    }
     
     @IBAction func mapClicked(_ sender: Any) {
         let mapVC = MapViewController.fromStoryboard() as! MapViewController
@@ -122,6 +126,7 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
         stepperView.layer.borderWidth = 1
         stepperView.layer.borderColor = UIColor(named: "purple")?.cgColor
         stepperView.layer.cornerRadius = 4
+        self.title = nameController
     }
     
     func spent(money: Double, currency: Currency) {

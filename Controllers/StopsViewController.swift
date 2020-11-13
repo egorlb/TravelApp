@@ -5,7 +5,7 @@ class StopsViewController: UIViewController, UITableViewDelegate, UITableViewDat
   
     // MARK: - Variables
     
-    private let nameController = "Stops"
+    private let nameController = "Остановка"
     var travel: Travel?
 
     // MARK: - Outlets
@@ -30,7 +30,9 @@ class StopsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @objc func addStopClicked(sender: UIBarButtonItem) {
         let createVC = CreateStopViewController.fromStoryboard() as! CreateStopViewController
         createVC.delegate = self
-        createVC.travelId = travel?.id ?? ""
+        if let travel = travel?.id {
+            createVC.travelId = travel
+        }
         navigationController?.pushViewController(createVC, animated: true)
     }
     
