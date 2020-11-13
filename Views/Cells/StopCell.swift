@@ -10,14 +10,12 @@ class StopCell: UITableViewCell {
     @IBOutlet weak var spentMoneyLabel: UILabel!
     @IBOutlet weak var transportImage: UIImageView!
     @IBOutlet var starsImageView: [UIImageView]!
-    
     @IBOutlet weak var viewForCell: UIView!
-    
     
     // MARK: - Lifecycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        viewForCell.layer.cornerRadius = 25
+        viewForCell.layer.cornerRadius = 10
     }
 }

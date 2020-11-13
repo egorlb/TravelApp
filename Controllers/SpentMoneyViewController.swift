@@ -34,11 +34,10 @@ class SpentMoneyViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         readyButton.layer.cornerRadius = 4
+        configureUI()
     }
     
     // MARK: - Actions
-    
     
     @IBAction func doneClicked(_ sender: Any) {
         if let text = textField.text, let money = Double(text) {
@@ -56,5 +55,20 @@ class SpentMoneyViewController: UIViewController {
             delegate?.spent(money: money, currency: currency)
             dismiss(animated: true, completion: nil)
         }
+    }
+    
+    @objc func hideKeyboardByTap() {
+        view.endEditing(true)
+    }
+    
+    // MARK: - Functions
+    
+    func configureUI() {
+        readyButton.layer.cornerRadius = 8
+        textField.layer.cornerRadius = 6
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboardByTap)))
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: self.textField.frame.height))
+        textField.leftView = paddingView
+        textField.leftViewMode = UITextField.ViewMode.always
     }
 }

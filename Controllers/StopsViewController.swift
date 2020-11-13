@@ -109,7 +109,7 @@ class StopsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 141
+        return 138
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {

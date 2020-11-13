@@ -78,10 +78,6 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
         present(alertController, animated: true, completion: nil)
     }
     
-    @objc func hideKeyboardByTap() {
-        view.endEditing(true)
-    }
-    
     // MARK: - Functions
     
     func configureUI() {
@@ -94,6 +90,9 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.delegate = self
         tableView.dataSource = self
         tableView.reloadData()
+        
+        let nib = UINib(nibName: "TravelXibCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "TravelXibCell")
     }
     
     func sendToServer(travel: Travel)  {

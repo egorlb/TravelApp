@@ -10,9 +10,10 @@ class TravelCell: UITableViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var viewForCell: UIView!
     
+    // MARK: - Lifecycle
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         viewForCell.layer.cornerRadius = 10
     }
 }

@@ -118,7 +118,7 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveClickedButton(sender:)))
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboardByTap)))
-        
+        descriptionTextView.textContainerInset = UIEdgeInsets(top: 8, left: 12, bottom: 20, right: 12)
         stepperView.layer.borderWidth = 1
         stepperView.layer.borderColor = UIColor(named: "purple")?.cgColor
         stepperView.layer.cornerRadius = 4
