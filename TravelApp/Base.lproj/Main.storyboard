@@ -393,20 +393,6 @@
                                     <constraint firstAttribute="width" constant="60" id="IrR-lm-N2C"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="964-Tn-pAA">
-                                <rect key="frame" x="20" y="622" width="335" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="vFE-Br-04R"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
-                                <color key="tintColor" red="0.99990516900000004" green="1" blue="0.99987047910000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="More ways to login">
-                                    <color key="titleColor" red="0.29411764705882354" green="0.45490196078431372" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="clickedLogin:" destination="Iwc-P1-6Oc" eventType="touchUpInside" id="VfY-1X-Oc6"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -414,15 +400,12 @@
                             <constraint firstItem="JoU-IJ-6Cq" firstAttribute="leading" secondItem="5D0-LV-iJK" secondAttribute="leading" constant="24" id="3SL-ly-5yj"/>
                             <constraint firstItem="5D0-LV-iJK" firstAttribute="trailing" secondItem="JoU-IJ-6Cq" secondAttribute="trailing" constant="24" id="6TZ-Qy-OlK"/>
                             <constraint firstItem="O6m-FC-NZk" firstAttribute="leading" secondItem="5D0-LV-iJK" secondAttribute="leading" constant="24" id="Agz-eV-XsQ"/>
+                            <constraint firstItem="5D0-LV-iJK" firstAttribute="bottom" secondItem="Opg-6g-uU8" secondAttribute="bottom" constant="87" id="Dma-nw-fSN"/>
                             <constraint firstItem="O6m-FC-NZk" firstAttribute="top" secondItem="ji0-gY-dfE" secondAttribute="bottom" constant="20" id="Uuz-C1-CWM"/>
                             <constraint firstItem="O6m-FC-NZk" firstAttribute="centerY" secondItem="YsQ-Yh-RzB" secondAttribute="centerY" id="Yp0-vx-7PV"/>
                             <constraint firstItem="5D0-LV-iJK" firstAttribute="trailing" secondItem="Opg-6g-uU8" secondAttribute="trailing" constant="24" id="Yxw-8L-2cb"/>
-                            <constraint firstItem="964-Tn-pAA" firstAttribute="top" secondItem="Opg-6g-uU8" secondAttribute="bottom" constant="42" id="bwJ-Ue-Gcd"/>
                             <constraint firstItem="Opg-6g-uU8" firstAttribute="top" secondItem="JoU-IJ-6Cq" secondAttribute="bottom" constant="12" id="crg-b3-klg"/>
                             <constraint firstItem="ji0-gY-dfE" firstAttribute="leading" secondItem="5D0-LV-iJK" secondAttribute="leading" constant="24" id="g0l-9B-G0v"/>
-                            <constraint firstItem="964-Tn-pAA" firstAttribute="leading" secondItem="YsQ-Yh-RzB" secondAttribute="leading" constant="20" id="hTD-Qp-NVL"/>
-                            <constraint firstAttribute="trailing" secondItem="964-Tn-pAA" secondAttribute="trailing" constant="20" id="iyR-E9-aFV"/>
-                            <constraint firstAttribute="bottom" secondItem="964-Tn-pAA" secondAttribute="bottom" constant="25" id="kg7-1E-nBg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5D0-LV-iJK"/>
                     </view>

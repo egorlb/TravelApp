@@ -1,4 +1,3 @@
-
 import UIKit
 
 class StopsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CreateStopViewControllerDelegate {

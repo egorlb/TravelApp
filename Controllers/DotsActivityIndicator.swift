@@ -1,4 +1,3 @@
-
 import UIKit
 @IBDesignable
 class DotsActivityIndicator: UIView {

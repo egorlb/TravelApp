@@ -1,4 +1,3 @@
-
 import UIKit
 
 extension RLMTravel {

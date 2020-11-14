@@ -161,7 +161,6 @@
 		74FBF1EC24D88A5E00DCB925 = {
 			isa = PBXGroup;
 			children = (
-				74FBF1FA24D88A5F00DCB925 /* SceneDelegate.swift */,
 				74FBF1F724D88A5F00DCB925 /* TravelApp */,
 				74BB42FF24FBC41E00149010 /* Controllers */,
 				7461C60224FE613B00E31274 /* Extensions */,
@@ -186,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				74FBF1F824D88A5F00DCB925 /* AppDelegate.swift */,
+				74FBF1FA24D88A5F00DCB925 /* SceneDelegate.swift */,
 				74FBF1FE24D88A5F00DCB925 /* Main.storyboard */,
 				74FBF20324D88A6200DCB925 /* LaunchScreen.storyboard */,
 				74FBF20624D88A6200DCB925 /* Info.plist */,
