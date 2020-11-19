@@ -18,7 +18,6 @@ class RegistrationViewController: UIViewController {
         createButton.layer.cornerRadius = 4
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboardByTap)))
-        
     }
     
     // MARK: - Actions

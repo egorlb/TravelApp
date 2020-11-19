@@ -22,6 +22,7 @@ class StopsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setEditing(false, animated: true)
+        tableView.reloadData()
     }
     
     // MARK: - Actions
@@ -46,8 +47,10 @@ class StopsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func didUpdate(stop: Stop) {
         DatabaseManager.shared.saveTravelInDatabase(travel!)
     }
+   
+    // MARK: - Private
     
-    func configureUI() {
+    private func configureUI() {
         let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addStopClicked(sender:)))
         let edit = self.editButtonItem
         self.navigationItem.rightBarButtonItems = [add,edit]
@@ -70,7 +73,7 @@ class StopsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if let stop = travel?.stops[indexPath.row] {
             cell.nameLabel.text = stop.name
             cell.descriptionLabel.text = stop.description
-            cell.spentMoneyLabel.text = stop.spentMoney
+            cell.spentMoneyLabel.text = stop.spentMoneyText
             
             if stop.transport == .airplane {
                 cell.transportImage.image = #imageLiteral(resourceName: "Airplane")
@@ -110,7 +113,7 @@ class StopsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 138
+        return 130
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {

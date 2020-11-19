@@ -16,9 +16,10 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let longTapGesture = UILongPressGestureRecognizer(target: self,
-                                                        action: #selector(longTap(sender:)))
-        mapView.addGestureRecognizer(longTapGesture)
+        let longTapGesture = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(longTap(sender:)))
+            mapView.addGestureRecognizer(longTapGesture)
     }
     
     // MARK: - Methods

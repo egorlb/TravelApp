@@ -34,6 +34,7 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setEditing(false, animated: true)
+        tableView.reloadData()
     }
     
     // MARK: - Actions
@@ -79,7 +80,7 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // MARK: - Functions
     
-    func configureUI() {
+    private func configureUI() {
         let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tappedAddButton(sender:)))
         let edit = self.editButtonItem
         self.navigationItem.rightBarButtonItems = [add, edit]
@@ -223,7 +224,7 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 95
+        return 105
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

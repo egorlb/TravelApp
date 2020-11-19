@@ -35,4 +35,8 @@ class Stop {
                 "transport": transport.rawValue,
                 "currency": currency.rawValue]
     }
+    
+    var spentMoneyText: String {
+        return  "\(spentMoney)" + currency.rawValue
+    }
 }

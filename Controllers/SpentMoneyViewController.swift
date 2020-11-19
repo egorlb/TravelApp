@@ -64,7 +64,7 @@ class SpentMoneyViewController: UIViewController {
     
     // MARK: - Functions
     
-    func configureUI() {
+    private func configureUI() {
         readyButton.layer.cornerRadius = 8
         inputTextField.layer.cornerRadius = 6
         choiceCurrencyControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.white], for: .selected)

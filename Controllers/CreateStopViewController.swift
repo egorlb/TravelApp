@@ -7,7 +7,7 @@ protocol CreateStopViewControllerDelegate {
 }
 
 class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelegate {
-
+    
     // MARK: - Outlets
     
     @IBOutlet weak var spentMoneyLabel: UILabel!
@@ -23,9 +23,9 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
     private let nameController = "Остановка"
     var count = 0
     var travelId: String = ""
-    var selectedMoney: String = ""
     var selectedCurrency: Currency = .none
     var selectedLocation: CGPoint = .zero
+    var money: Double = 0
     var stop: Stop?
     var delegate: CreateStopViewControllerDelegate?
     
@@ -35,28 +35,7 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
         super.viewDidLoad()
         
         configureUI()
-        
-        if let stop = stop {
-            spentMoneyLabel.text = String(stop.spentMoney)
-            stopNameTextField.text = stop.name
-            rateLabel.text = String(stop.rate)
-            descriptionTextView.text = stop.description
-            selectedMoney = stop.spentMoney
-            selectedCurrency = stop.currency
-            locationLabel.text = "\(stop.location.x)-\(stop.location.y)"
-            selectedLocation = stop.location
-            
-            switch stop.transport {
-            case .airplane:
-                chooseTransportSegmentedControl.selectedSegmentIndex = 0
-            case .train:
-                chooseTransportSegmentedControl.selectedSegmentIndex = 1
-            case .car:
-                chooseTransportSegmentedControl.selectedSegmentIndex = 2
-            case .none:
-                break
-            }
-        }
+        setupExistingStop()
     }
     
     // MARK: - Actions
@@ -97,14 +76,13 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
         dotsAnimationIndicator.isHidden = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: { [weak self] in
             guard let self = self else { return }
-            self.dotsAnimationIndicator.stopAnimation()
             self.navigationController?.popViewController(animated: true )
         })
     }
-
+    
     @objc func hideKeyboardByTap() {
-             view.endEditing(true)
-         }
+        view.endEditing(true)
+    }
     
     @IBAction func mapClicked(_ sender: Any) {
         let mapVC = MapViewController.fromStoryboard() as! MapViewController
@@ -117,7 +95,7 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
     
     // MARK: - Functions
     
-    func configureUI() {
+    private func configureUI() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveClickedButton(sender:)))
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboardByTap)))
@@ -128,10 +106,32 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
         self.title = nameController
     }
     
+    private func setupExistingStop() {
+        if let stop = stop {
+            spentMoneyLabel.text = stop.spentMoneyText
+            stopNameTextField.text = stop.name
+            rateLabel.text = String(stop.rate)
+            descriptionTextView.text = stop.description
+            locationLabel.text = "\(stop.location.x)-\(stop.location.y)"
+            selectedLocation = stop.location
+            
+            switch stop.transport {
+            case .airplane:
+                chooseTransportSegmentedControl.selectedSegmentIndex = 0
+            case .train:
+                chooseTransportSegmentedControl.selectedSegmentIndex = 1
+            case .car:
+                chooseTransportSegmentedControl.selectedSegmentIndex = 2
+            case .none:
+                break
+            }
+        }
+    }
+    
     func spent(money: Double, currency: Currency) {
-        spentMoneyLabel.text = String(money) + currency.rawValue
-        selectedMoney = String(money)
+        self.money = money
         selectedCurrency = currency
+        spentMoneyLabel.text = "\(money)" + currency.rawValue
     }
     
     func updateStop(stop: Stop) {
@@ -145,7 +145,7 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
             stop.spentMoney = spentMoney
         }
         stop.location = selectedLocation
-        stop.spentMoney = selectedMoney
+        stop.spentMoney = String(money)
         stop.currency = selectedCurrency
         stop.description = descriptionTextView.text
         

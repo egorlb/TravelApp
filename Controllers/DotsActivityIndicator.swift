@@ -1,9 +1,12 @@
 import UIKit
+
 @IBDesignable
+
 class DotsActivityIndicator: UIView {
     enum AnimationKeys {
         static let group = "scaleGroupAnimation"
     }
+    
     enum AnimationConstants {
         static let dotScale: CGFloat = 1.5
         static let scaleUpDuration: TimeInterval = 0.2
@@ -14,18 +17,19 @@ class DotsActivityIndicator: UIView {
         }
     }
     
-    var dots: [CALayer] = []
+    private var dots: [CALayer] = []
     
     @IBInspectable
-    var dotsCount: Int = 3 {
+    private var dotsCount: Int = 3 {
         didSet {
             removeDots()
             cofigureDots()
             setNeedsLayout()
         }
     }
+    
     @IBInspectable
-    var dotRadius: CGFloat = 8.0 {
+    private var dotRadius: CGFloat = 8.0 {
         didSet {
             for dot in dots {
                 configureDotSize(dot)
@@ -33,6 +37,7 @@ class DotsActivityIndicator: UIView {
             setNeedsLayout()
         }
     }
+    
     override var tintColor: UIColor! {
         didSet {
             for dot in dots {
@@ -41,33 +46,35 @@ class DotsActivityIndicator: UIView {
             setNeedsLayout()
         }
     }
+    
     @IBInspectable
-    var dotSpacing: CGFloat = 8.0
-    var dotSize: CGSize {
+    private var dotSpacing: CGFloat = 8.0
+    private var dotSize: CGSize {
         return CGSize(width: dotRadius * 2 , height: dotRadius * 2)
     }
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         cofigureDots()
     }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         cofigureDots()
     }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        let center = CGPoint(x: frame.width/2, y: frame.height/2)
-        let middle = dots.count/2
+        let center = CGPoint(x: frame.width / 2, y: frame.height / 2)
+        let middle = dots.count / 2
         for i in 0..<dots.count {
-            let x = center.x + CGFloat(i - middle)*(dotSize.width + dotSpacing)
+            let x = center.x + CGFloat(i - middle) * (dotSize.width + dotSpacing)
             let y = center.y
             dots[i].position = CGPoint(x: x, y: y)
         }
     }
     
-    func cofigureDots() {
+    private func cofigureDots() {
         for _ in 0..<dotsCount {
             let dot = CALayer()
             configureDotSize(dot)
@@ -78,39 +85,41 @@ class DotsActivityIndicator: UIView {
         }
         startAnimation()
     }
-    func removeDots() {
+    
+    private func removeDots() {
         for dot in dots {
             dot.removeFromSuperlayer()
         }
         dots.removeAll()
     }
-    func configureDotSize(_ dot: CALayer) {
+    
+    private func configureDotSize(_ dot: CALayer) {
         dot.frame.size = dotSize
         dot.cornerRadius = dotRadius
     }
-    func configureDotColor(_ dot: CALayer) {
+    
+    private func configureDotColor(_ dot: CALayer) {
         dot.backgroundColor = tintColor.cgColor
     }
+    
     func startAnimation() {
         var offset: TimeInterval = 0
         for dot in dots {
             dot.removeAnimation(forKey: AnimationKeys.group)
-         let animatiom = scaleAnimation(offset)
+            let animatiom = scaleAnimation(offset)
             dot.add(animatiom, forKey: AnimationKeys.group)
             offset = offset + AnimationConstants.offset
         }
     }
-    func stopAnimation () {
-        
-    }
-    func scaleAnimation(_ after: TimeInterval) -> CAAnimationGroup {
+    
+    private func scaleAnimation(_ after: TimeInterval) -> CAAnimationGroup {
         let scaleUp = CABasicAnimation(keyPath: "transform.scale")
         scaleUp.beginTime = after
         scaleUp.fromValue = 1
         scaleUp.toValue = AnimationConstants.dotScale
         scaleUp.duration = AnimationConstants.scaleUpDuration
         
-    let scaleDown = CABasicAnimation(keyPath: "transform.scale")
+        let scaleDown = CABasicAnimation(keyPath: "transform.scale")
         scaleDown.beginTime = after + scaleUp.duration
         scaleDown.fromValue = AnimationConstants.dotScale
         scaleDown.toValue = 1
@@ -121,5 +130,4 @@ class DotsActivityIndicator: UIView {
         group.duration = AnimationConstants.totalScaleDuration * TimeInterval(dots.count)
         return group
     }
-    
 }

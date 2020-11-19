@@ -35,7 +35,7 @@ class WelcomeViewController: UIViewController {
     
     // MARK: - Functions
     
-    func configureUI() {
+    private func configureUI() {
         loginButton.layer.cornerRadius = 4
         createButton.layer.cornerRadius = 4
         self.navigationController?.navigationBar.tintColor = UIColor(named: "purple")
