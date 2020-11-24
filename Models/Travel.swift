@@ -28,7 +28,9 @@ class Travel {
     }
     
     var json: [String: Any] {
-        return ["name": name,
+        return ["id": id,
+                "userId": userId,
+                "name": name,
                 "description": description,
                 "stops": stops.map({ $0.json })]
     }

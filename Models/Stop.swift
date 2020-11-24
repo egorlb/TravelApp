@@ -32,6 +32,7 @@ class Stop {
                 "rate": rate,
                 "spentMoney": spentMoney,
                 "location": "\(location.x)-\(location.y)",
+                "description": description,
                 "transport": transport.rawValue,
                 "currency": currency.rawValue]
     }

@@ -11,6 +11,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         print("RealmFile:", Realm.Configuration.defaultConfiguration.fileURL)
         
+        let userDefaults = UserDefaults.standard
+        if userDefaults.value(forKey: "appFirstTimeOpend") == nil {
+            userDefaults.setValue(true, forKey: "appFirstTimeOpend")
+            do {
+                try Auth.auth().signOut()
+            } catch {
+                error.localizedDescription
+            }
+        }
         return true
     }
 

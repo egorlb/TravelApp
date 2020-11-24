@@ -9,7 +9,7 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBOutlet weak var tableView: UITableView!
     var travelsNotification: NotificationToken!
-
+    
     // MARK: - Variables
     
     private let nameController = "Путешествия"
@@ -29,6 +29,7 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let travelObjects = DatabaseManager.shared.getObjects(classType: RLMTravel.self)
         let stopObjects = DatabaseManager.shared.getObjects(classType: RLMStop.self)
+        let resultJson = travels.map({ $0.json })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +50,7 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
                 if travelName.isEmpty && travelDescription.isEmpty {
                     var message: String = ""
                     message = "Поле не заполнено"
+                    
                     let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
                     alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     
@@ -78,15 +80,28 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
         present(alertController, animated: true, completion: nil)
     }
     
+    @objc func tappedExitButton(sender: UIBarButtonItem) {
+        do {
+            try Auth.auth().signOut() }
+        catch {
+            error.localizedDescription
+        }
+        let loginVC = WelcomeViewController.fromStoryboard() as! WelcomeViewController
+        self.navigationController?.pushViewController(loginVC, animated: true)
+    }
+    
     // MARK: - Functions
     
     private func configureUI() {
         let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tappedAddButton(sender:)))
         let edit = self.editButtonItem
+        let exit = UIBarButtonItem(title: "Sign out", style: .plain, target: self, action: #selector(tappedExitButton(sender:)))
+        self.navigationItem.leftBarButtonItem = exit
         self.navigationItem.rightBarButtonItems = [add, edit]
         self.navigationController?.navigationBar.tintColor = UIColor(named: "purple")
         self.navigationItem.hidesBackButton = true
         self.title = nameController
+        exit.tintColor = .red
         tableView.tableFooterView = UIView()
         tableView.delegate = self
         tableView.dataSource = self
@@ -101,13 +116,18 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func getTravelFromServer() {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            return
+        }
         let database = Database.database().reference()
-        database.child("travels").observeSingleEvent(of: .value) { [weak self] (snapshot) in
-            guard let self = self else { return }
-            guard let value = snapshot.value as? [String: Any] else {
+        let ref = database.child("travels")
+        let query = ref.queryOrdered(byChild: "userId").queryEqual(toValue: userId)
+        query.observeSingleEvent(of: .value) { [weak self] (snapshot) in
+            guard let self = self, let value = snapshot.value as? [String: Any] else {
                 return
             }
             self.travels.removeAll()
+            
             for item in value.values {
                 if let travelJson = item as? [String: Any] {
                     if let id = travelJson["id"] as? String,
@@ -212,6 +232,7 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
         if editingStyle == .delete {
             self.travels.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
+            self.tableView.reloadData()
         }
     }
     
