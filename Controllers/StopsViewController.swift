@@ -66,7 +66,8 @@ class StopsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     // MARK: - TableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return travel?.stops.count ?? 0
+        guard let rows = travel?.stops.count else { return 0 }
+        return rows
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -99,11 +100,34 @@ class StopsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         navigationController?.pushViewController(createVC, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
+    private func deleteAction(stop: Stop, indexPath: IndexPath) {
+        let alert = UIAlertController(title: "Удалить",
+                                      message: "Вы уверены, что хотите удалить остановку ?",
+                                      preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Да", style: .default) { (action) in
+            let travel = self.travel?.stops[indexPath.row]
             self.travel?.stops.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            TravelListViewController.removeStopFromServer(stop: stop)
+            DatabaseManager.shared.deleteStop(stop)
         }
+
+        let cancelAction = UIAlertAction(title: "Нет", style: .default, handler: nil)
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        guard let stop = travel?.stops[indexPath.row] else {
+            return nil
+        }
+        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
+            self.deleteAction(stop: stop, indexPath: indexPath)
+        }
+        deleteAction.backgroundColor = .red
+        return [deleteAction]
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {

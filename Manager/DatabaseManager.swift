@@ -43,6 +43,16 @@ class DatabaseManager {
         }
     }
     
+    func deleteStop(_ stop: Stop) {
+        let realm = try! Realm()
+        guard let rlmStop = realm.object(ofType: RLMStop.self, forPrimaryKey: stop.id) else {
+            return
+        }
+        try! realm.write {
+            realm.delete(rlmStop)
+        }
+    }
+    
     func getObjects<T: Object>(classType: T.Type) -> [T] {
         var result: [T] = []
         let realm = try! Realm()

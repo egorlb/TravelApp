@@ -106,9 +106,15 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    func removeFromServer(travel: Travel) {
+    func removeTravelFromServer(travel: Travel) {
         let database = Database.database().reference()
         let child = database.child("travels").child("\(travel.id)")
+        child.removeValue()
+    }
+    
+    static func removeStopFromServer(stop: Stop) {
+        let database = Database.database().reference()
+        let child = database.child("stops").child("\(stop.id)")
         child.removeValue()
     }
     
@@ -246,6 +252,7 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
                 return
             }
         }
+        
         let cancelAction = UIAlertAction(title: "Нет", style: .default)
         alert.addTextField()
         guard let textField = alert.textFields?.first else {
@@ -265,10 +272,10 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
             let travel = self.travels[indexPath.row]
             self.travels.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            self.removeFromServer(travel: travel)
+            self.removeTravelFromServer(travel: travel)
             DatabaseManager.shared.deleteTravel(travel)
         }
-
+        
         let cancelAction = UIAlertAction(title: "Нет", style: .default, handler: nil)
         alert.addAction(deleteAction)
         alert.addAction(cancelAction)

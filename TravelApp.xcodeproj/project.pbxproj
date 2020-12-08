@@ -145,7 +145,6 @@
 				74BB42D324F815B900149010 /* Stop.swift */,
 				74BC95E0255071140030A34C /* RLMTravel.swift */,
 				74BC95E2255077F60030A34C /* RLMStop.swift */,
-				74BC95E425507E2D0030A34C /* DatabaseManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -158,11 +157,20 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		74DB853A25800C7E00F79D39 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				74BC95E425507E2D0030A34C /* DatabaseManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		74FBF1EC24D88A5E00DCB925 = {
 			isa = PBXGroup;
 			children = (
 				74FBF1F724D88A5F00DCB925 /* TravelApp */,
 				74BB42FF24FBC41E00149010 /* Controllers */,
+				74DB853A25800C7E00F79D39 /* Manager */,
 				7461C60224FE613B00E31274 /* Extensions */,
 				74BB430024FBC45C00149010 /* Views */,
 				74BB430124FBC4C700149010 /* Models */,
