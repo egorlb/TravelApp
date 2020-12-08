@@ -40,12 +40,14 @@ class StopsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func didCreate(stop: Stop) {
         travel?.stops.append(stop)
-        DatabaseManager.shared.saveTravelInDatabase(travel!)
+        guard let travel = travel else { return }
+        DatabaseManager.shared.saveTravelInDatabase(travel)
         tableView.reloadData()
     }
     
     func didUpdate(stop: Stop) {
-        DatabaseManager.shared.saveTravelInDatabase(travel!)
+        guard let travel = travel else { return }
+        DatabaseManager.shared.saveTravelInDatabase(travel)
     }
    
     // MARK: - Private

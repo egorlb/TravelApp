@@ -5,10 +5,14 @@ import FirebaseRemoteConfig
 
 class LoadingViewController: UIViewController {
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureRemoteConfg()
     }
+    
+    // MARK: - Private
     
     private func showWelcomeScreen() {
         let welcomeVC  = WelcomeViewController.fromStoryboard() as! WelcomeViewController

@@ -294,13 +294,13 @@
                                             </textView>
                                         </subviews>
                                     </stackView>
-                                    <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fjA-Vj-5J9" customClass="DotsActivityIndicator" customModule="TravelApp" customModuleProvider="target">
-                                        <rect key="frame" x="87" y="364" width="240" height="90"/>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fjA-Vj-5J9" customClass="DotsActivityIndicator" customModule="TravelApp" customModuleProvider="target">
+                                        <rect key="frame" x="87" y="310" width="240" height="90"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" red="0.0" green="0.69019607843137254" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="90" id="9hV-Ne-LuP"/>
-                                            <constraint firstAttribute="width" constant="240" id="Pw0-Hr-AK1"/>
+                                            <constraint firstAttribute="width" constant="240" id="9N9-qa-Wxa"/>
+                                            <constraint firstAttribute="height" constant="90" id="eNv-S8-r8Y"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="dotsCount">
@@ -314,7 +314,9 @@
                                     <constraint firstItem="baf-ja-abU" firstAttribute="width" secondItem="kWR-5x-jl9" secondAttribute="width" id="IUg-oC-xhI"/>
                                     <constraint firstItem="baf-ja-abU" firstAttribute="trailing" secondItem="JbD-GG-Fni" secondAttribute="trailing" id="Pjz-aA-jp7"/>
                                     <constraint firstItem="JbD-GG-Fni" firstAttribute="top" secondItem="baf-ja-abU" secondAttribute="top" id="VKh-Ey-hjp"/>
+                                    <constraint firstItem="fjA-Vj-5J9" firstAttribute="centerX" secondItem="fGc-eV-g2g" secondAttribute="centerX" id="l9x-o4-bee"/>
                                     <constraint firstItem="baf-ja-abU" firstAttribute="leading" secondItem="JbD-GG-Fni" secondAttribute="leading" id="uiA-nU-j0X"/>
+                                    <constraint firstItem="fjA-Vj-5J9" firstAttribute="top" secondItem="baf-ja-abU" secondAttribute="bottom" constant="31" id="xNW-J3-Gt3"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="JbD-GG-Fni"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="kWR-5x-jl9"/>
@@ -482,7 +484,7 @@
                                             <constraint firstAttribute="height" constant="17" id="JHW-9B-Gqd"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FST-h2-QNF">
                                         <rect key="frame" x="0.0" y="51.5" width="366" height="1"/>
@@ -613,7 +615,7 @@
                                             <constraint firstAttribute="height" constant="17" id="Wwu-Sw-5jT"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" textContentType="password"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oOh-8M-sgT">
                                         <rect key="frame" x="0.0" y="51.5" width="366" height="1"/>

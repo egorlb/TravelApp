@@ -119,13 +119,12 @@
 				742D866A24F41DA3004695E7 /* WelcomeViewController.swift */,
 				7461C60724FE9C0500E31274 /* RegistrationViewController.swift */,
 				745751DC24F12F6700FD25BF /* LoginViewController.swift */,
+				743AC7A02540E711007F215A /* ForgotPasswordViewController.swift */,
 				74BB42CF24F8139300149010 /* TravelListViewController.swift */,
 				74A6941524DC6B8400AD6C9F /* CreateStopViewController.swift */,
 				74D0293A250A9146005A9461 /* SpentMoneyViewController.swift */,
 				74BB430324FBC66700149010 /* StopsViewController.swift */,
 				746757A925191C900096BD14 /* MapViewController.swift */,
-				741200A4254AFDE700E5B280 /* DotsActivityIndicator.swift */,
-				743AC7A02540E711007F215A /* ForgotPasswordViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -133,6 +132,7 @@
 		74BB430024FBC45C00149010 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				741200A4254AFDE700E5B280 /* DotsActivityIndicator.swift */,
 				743AC79F25404A09007F215A /* Cells */,
 			);
 			path = Views;

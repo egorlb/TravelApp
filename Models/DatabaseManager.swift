@@ -33,6 +33,16 @@ class DatabaseManager {
         }
     }
     
+    func deleteTravel(_ travel: Travel) {
+        let realm = try! Realm()
+        guard let rlmTravel = realm.object(ofType: RLMTravel.self, forPrimaryKey: travel.id) else {
+            return
+        }
+        try! realm.write {
+            realm.delete(rlmTravel)
+        }
+    }
+    
     func getObjects<T: Object>(classType: T.Type) -> [T] {
         var result: [T] = []
         let realm = try! Realm()

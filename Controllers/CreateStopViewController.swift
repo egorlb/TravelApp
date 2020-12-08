@@ -20,6 +20,7 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
     @IBOutlet weak var dotsAnimationIndicator: DotsActivityIndicator!
     
     // MARK: - Properties
+    
     private let nameController = "Остановка"
     var count = 0
     var travelId: String = ""
@@ -93,40 +94,7 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
         }
     }
     
-    // MARK: - Functions
-    
-    private func configureUI() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveClickedButton(sender:)))
-        
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboardByTap)))
-        descriptionTextView.textContainerInset = UIEdgeInsets(top: 8, left: 12, bottom: 20, right: 12)
-        stepperView.layer.borderWidth = 1
-        stepperView.layer.borderColor = UIColor(named: "purple")?.cgColor
-        stepperView.layer.cornerRadius = 4
-        self.title = nameController
-    }
-    
-    private func setupExistingStop() {
-        if let stop = stop {
-            spentMoneyLabel.text = stop.spentMoneyText
-            stopNameTextField.text = stop.name
-            rateLabel.text = String(stop.rate)
-            descriptionTextView.text = stop.description
-            locationLabel.text = "\(stop.location.x)-\(stop.location.y)"
-            selectedLocation = stop.location
-            
-            switch stop.transport {
-            case .airplane:
-                chooseTransportSegmentedControl.selectedSegmentIndex = 0
-            case .train:
-                chooseTransportSegmentedControl.selectedSegmentIndex = 1
-            case .car:
-                chooseTransportSegmentedControl.selectedSegmentIndex = 2
-            case .none:
-                break
-            }
-        }
-    }
+    // MARK: - Public
     
     func spent(money: Double, currency: Currency) {
         self.money = money
@@ -165,8 +133,40 @@ class CreateStopViewController: UIViewController, SpentMoneyViewControllerDelega
         let database = Database.database().reference()
         let child = database.child("stops").child("\(stop.id)")
         child.setValue(stop.json) { (error, ref) in
-            if let newerror = error {
-                print(newerror,ref)
+        }
+    }
+    
+    // MARK: - Private
+    
+    private func configureUI() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveClickedButton(sender:)))
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboardByTap)))
+        descriptionTextView.textContainerInset = UIEdgeInsets(top: 8, left: 12, bottom: 20, right: 12)
+        stepperView.layer.borderWidth = 1
+        stepperView.layer.borderColor = UIColor(named: "purple")?.cgColor
+        stepperView.layer.cornerRadius = 4
+        self.title = nameController
+    }
+    
+    private func setupExistingStop() {
+        if let stop = stop {
+            spentMoneyLabel.text = stop.spentMoneyText
+            stopNameTextField.text = stop.name
+            rateLabel.text = String(stop.rate)
+            descriptionTextView.text = stop.description
+            locationLabel.text = "\(stop.location.x)-\(stop.location.y)"
+            selectedLocation = stop.location
+            
+            switch stop.transport {
+            case .airplane:
+                chooseTransportSegmentedControl.selectedSegmentIndex = 0
+            case .train:
+                chooseTransportSegmentedControl.selectedSegmentIndex = 1
+            case .car:
+                chooseTransportSegmentedControl.selectedSegmentIndex = 2
+            case .none:
+                break
             }
         }
     }

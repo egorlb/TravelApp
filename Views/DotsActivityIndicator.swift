@@ -3,6 +3,9 @@ import UIKit
 @IBDesignable
 
 class DotsActivityIndicator: UIView {
+    
+    // MARK: - Enums
+    
     enum AnimationKeys {
         static let group = "scaleGroupAnimation"
     }
@@ -16,6 +19,8 @@ class DotsActivityIndicator: UIView {
             return scaleUpDuration + scaleUpDownDuration
         }
     }
+    
+    // MARK: - Variables
     
     private var dots: [CALayer] = []
     
@@ -53,6 +58,8 @@ class DotsActivityIndicator: UIView {
         return CGSize(width: dotRadius * 2 , height: dotRadius * 2)
     }
     
+    // MARK: - Initialization
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         cofigureDots()
@@ -62,6 +69,8 @@ class DotsActivityIndicator: UIView {
         super.init(coder: coder)
         cofigureDots()
     }
+    
+    // MARK: - Functions
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -73,6 +82,8 @@ class DotsActivityIndicator: UIView {
             dots[i].position = CGPoint(x: x, y: y)
         }
     }
+    
+    // MARK: - Private
     
     private func cofigureDots() {
         for _ in 0..<dotsCount {
@@ -102,16 +113,6 @@ class DotsActivityIndicator: UIView {
         dot.backgroundColor = tintColor.cgColor
     }
     
-    func startAnimation() {
-        var offset: TimeInterval = 0
-        for dot in dots {
-            dot.removeAnimation(forKey: AnimationKeys.group)
-            let animatiom = scaleAnimation(offset)
-            dot.add(animatiom, forKey: AnimationKeys.group)
-            offset = offset + AnimationConstants.offset
-        }
-    }
-    
     private func scaleAnimation(_ after: TimeInterval) -> CAAnimationGroup {
         let scaleUp = CABasicAnimation(keyPath: "transform.scale")
         scaleUp.beginTime = after
@@ -129,5 +130,15 @@ class DotsActivityIndicator: UIView {
         group.repeatCount = .infinity
         group.duration = AnimationConstants.totalScaleDuration * TimeInterval(dots.count)
         return group
+    }
+    
+    func startAnimation() {
+        var offset: TimeInterval = 0
+        for dot in dots {
+            dot.removeAnimation(forKey: AnimationKeys.group)
+            let animatiom = scaleAnimation(offset)
+            dot.add(animatiom, forKey: AnimationKeys.group)
+            offset = offset + AnimationConstants.offset
+        }
     }
 }

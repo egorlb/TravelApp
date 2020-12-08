@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if userDefaults.value(forKey: "appFirstTimeOpend") == nil {
             userDefaults.setValue(true, forKey: "appFirstTimeOpend")
             do {
-                try Auth.auth().signOut()
+                try? Auth.auth().signOut()
             } catch {
                 error.localizedDescription
             }

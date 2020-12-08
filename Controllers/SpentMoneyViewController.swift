@@ -24,7 +24,6 @@ class SpentMoneyViewController: UIViewController {
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var readyButton: UIButton!
     
-    
     // MARK: - Properties
     
     var currency: Currency?

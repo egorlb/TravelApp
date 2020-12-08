@@ -14,7 +14,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var loginBtn: UIButton!
     
-    // MARK: - Variables
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()

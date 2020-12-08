@@ -9,7 +9,6 @@ class RegistrationViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
-    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {

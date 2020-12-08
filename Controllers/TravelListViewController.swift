@@ -26,10 +26,6 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
         travels = DatabaseManager.shared.getTravels()
         observeTravels()
         configureUI()
-        
-        let travelObjects = DatabaseManager.shared.getObjects(classType: RLMTravel.self)
-        let stopObjects = DatabaseManager.shared.getObjects(classType: RLMStop.self)
-        let resultJson = travels.map({ $0.json })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,6 +62,7 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
                 }
             }
         }
+        
         let cancelAction = UIAlertAction(title: "Отменить", style: .cancel) { (action) in
         }
         alertController.addAction(addAction)
@@ -81,38 +78,38 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @objc func tappedExitButton(sender: UIBarButtonItem) {
-        do {
-            try Auth.auth().signOut() }
-        catch {
-            error.localizedDescription
+        try? Auth.auth().signOut()
+        
+        var rootController: UIViewController? = nil
+        if let navigationController = navigationController {
+            for viewcontroller in navigationController.viewControllers {
+                if viewcontroller is WelcomeViewController {
+                    rootController = viewcontroller
+                }
+            }
+            if let rootController = rootController {
+                self.navigationController?.popToViewController(rootController, animated: false)
+            } else {
+                let welcomeVC  = WelcomeViewController.fromStoryboard() as! WelcomeViewController
+                navigationController.setViewControllers([welcomeVC], animated: false)
+            }
         }
-        let loginVC = WelcomeViewController.fromStoryboard() as! WelcomeViewController
-        self.navigationController?.pushViewController(loginVC, animated: true)
+        DatabaseManager.shared.clear()
     }
     
-    // MARK: - Functions
-    
-    private func configureUI() {
-        let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tappedAddButton(sender:)))
-        let edit = self.editButtonItem
-        let exit = UIBarButtonItem(title: "Sign out", style: .plain, target: self, action: #selector(tappedExitButton(sender:)))
-        self.navigationItem.leftBarButtonItem = exit
-        self.navigationItem.rightBarButtonItems = [add, edit]
-        self.navigationController?.navigationBar.tintColor = UIColor(named: "purple")
-        self.navigationItem.hidesBackButton = true
-        self.title = nameController
-        exit.tintColor = .red
-        tableView.tableFooterView = UIView()
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.reloadData()
-    }
+    // MARK: - Public
     
     func sendToServer(travel: Travel)  {
         let database = Database.database().reference()
         let child = database.child("travels").child("\(travel.id)")
         child.setValue(travel.json) { (error, ref) in
         }
+    }
+    
+    func removeFromServer(travel: Travel) {
+        let database = Database.database().reference()
+        let child = database.child("travels").child("\(travel.id)")
+        child.removeValue()
     }
     
     func getTravelFromServer() {
@@ -211,6 +208,73 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
+    // MARK: - Private
+    
+    private func configureUI() {
+        let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tappedAddButton(sender:)))
+        let edit = self.editButtonItem
+        let signOut = UIBarButtonItem(title: "Sign out", style: .plain, target: self, action: #selector(tappedExitButton(sender:)))
+        self.navigationItem.leftBarButtonItem = signOut
+        self.navigationItem.rightBarButtonItems = [add, edit]
+        self.navigationController?.navigationBar.tintColor = UIColor(named: "purple")
+        self.navigationItem.hidesBackButton = true
+        self.title = nameController
+        signOut.tintColor = .red
+        tableView.tableFooterView = UIView()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.reloadData()
+    }
+    
+    private func updateAction(travel: Travel, indexPath: IndexPath) {
+        let alert = UIAlertController(title: "Обновить",
+                                      message: "Обновить путешествие",
+                                      preferredStyle: .alert)
+        let saveAction = UIAlertAction(title: "Сохранить", style: .default) { (action) in
+            guard let textField = alert.textFields?.first else {
+                return
+            }
+            if let textToEdit = textField.text {
+                if textToEdit.count == 0 {
+                    return
+                }
+                travel.name = textToEdit
+                self.tableView.reloadRows(at: [indexPath], with: .fade)
+                self.sendToServer(travel: travel)
+                DatabaseManager.shared.saveTravelInDatabase(travel)
+            } else {
+                return
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Нет", style: .default)
+        alert.addTextField()
+        guard let textField = alert.textFields?.first else {
+            return
+        }
+        textField.placeholder = "Измените название путешествия"
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+    }
+    
+    private func deleteAction(travel: Travel, indexPath: IndexPath) {
+        let alert = UIAlertController(title: "Удалить",
+                                      message: "Вы уверены, что хотите удалить путешествие ?",
+                                      preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Да", style: .default) { (action) in
+            let travel = self.travels[indexPath.row]
+            self.travels.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.removeFromServer(travel: travel)
+            DatabaseManager.shared.deleteTravel(travel)
+        }
+
+        let cancelAction = UIAlertAction(title: "Нет", style: .default, handler: nil)
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+    }
+    
     // MARK: - TableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -228,12 +292,18 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            self.travels.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
-            self.tableView.reloadData()
+    func tableView(_ tableView: UITableView,
+                   editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let travel = travels[indexPath.row]
+        let editAction = UITableViewRowAction(style: .default, title: "Edit") { (action, indexPath) in
+            self.updateAction(travel: travel, indexPath: indexPath)
         }
+        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
+            self.deleteAction(travel: travel, indexPath: indexPath)
+        }
+        deleteAction.backgroundColor = .red
+        editAction.backgroundColor = .blue
+        return [deleteAction, editAction]
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
