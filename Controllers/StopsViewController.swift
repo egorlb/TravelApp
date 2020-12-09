@@ -105,7 +105,6 @@ class StopsViewController: UIViewController, UITableViewDelegate, UITableViewDat
                                       message: "Вы уверены, что хотите удалить остановку ?",
                                       preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: "Да", style: .default) { (action) in
-            let travel = self.travel?.stops[indexPath.row]
             self.travel?.stops.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
             TravelListViewController.removeStopFromServer(stop: stop)
@@ -118,16 +117,18 @@ class StopsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         present(alert, animated: true)
     }
     
-    func tableView(_ tableView: UITableView,
-                   editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard let stop = travel?.stops[indexPath.row] else {
             return nil
         }
-        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, complete in
             self.deleteAction(stop: stop, indexPath: indexPath)
+            complete(true)
         }
         deleteAction.backgroundColor = .red
-        return [deleteAction]
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = true
+        return configuration
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {

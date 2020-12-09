@@ -299,18 +299,21 @@ class TravelListViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
     
-    func tableView(_ tableView: UITableView,
-                   editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
         let travel = travels[indexPath.row]
-        let editAction = UITableViewRowAction(style: .default, title: "Edit") { (action, indexPath) in
+        let editAction = UIContextualAction(style: .destructive, title: "Edit") { (_, _, complete) in
             self.updateAction(travel: travel, indexPath: indexPath)
         }
-        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, complete in
             self.deleteAction(travel: travel, indexPath: indexPath)
+            complete(true)
         }
         deleteAction.backgroundColor = .red
         editAction.backgroundColor = .blue
-        return [deleteAction, editAction]
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+        configuration.performsFirstActionWithFullSwipe = true
+        return configuration
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {

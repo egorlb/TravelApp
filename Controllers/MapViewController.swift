@@ -15,14 +15,10 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let longTapGesture = UILongPressGestureRecognizer(
-            target: self,
-            action: #selector(longTap(sender:)))
-            mapView.addGestureRecognizer(longTapGesture)
+        configureUI()
     }
     
-    // MARK: - Methods
+    // MARK: - Actions
     
     @objc func longTap(sender: UIGestureRecognizer) {
         if sender.state == .began {
@@ -37,5 +33,14 @@ class MapViewController: UIViewController {
             let point = locationOnMap.getPoint()
             closure?(point)
         }
+    }
+    
+    // MARK: - Private
+    
+    private func configureUI() {
+        let longTapGesture = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(longTap(sender:)))
+        mapView.addGestureRecognizer(longTapGesture)
     }
 }

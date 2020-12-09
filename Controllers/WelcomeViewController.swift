@@ -35,7 +35,7 @@ class WelcomeViewController: UIViewController {
         self.navigationController?.pushViewController(loginVC, animated: true)
     }
     
-    // MARK: - Functions
+    // MARK: - Private
     
     private func configureUI() {
         loginButton.layer.cornerRadius = 4
