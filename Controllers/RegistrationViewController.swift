@@ -21,7 +21,7 @@ class RegistrationViewController: UIViewController {
     
     // MARK: - Actions
     
-    @IBAction func didTapCreateButton(_ sender: UIButton) {
+    @IBAction private func didTapCreateButton(_ sender: UIButton) {
         guard let email = emailTextField.text, let password = passwordTextField.text else {
             return
         }
